@@ -1,3 +1,4 @@
 class Form < ApplicationRecord
-  has_many :answers, dependent: :destroy
+  has_many :responses, dependent: :destroy
+  has_many :questions, dependent: :destroy
 end
