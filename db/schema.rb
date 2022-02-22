@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_22_072929) do
+ActiveRecord::Schema.define(version: 2022_02_22_101922) do
 
   create_table "forms", force: :cascade do |t|
     t.string "name"
@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 2022_02_22_072929) do
     t.integer "form_id"
     t.text "content"
     t.text "options"
-    t.string "question_type"
+    t.integer "question_type", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
