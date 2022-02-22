@@ -30,4 +30,12 @@ ActiveRecord::Schema.define(version: 2022_02_22_101922) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "responses", force: :cascade do |t|
+    t.integer "form_id"
+    t.text "content"
+    t.string "respondent"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
 end
