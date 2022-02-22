@@ -20,5 +20,12 @@
   <%= @form.data %>
 </p>
 
+<p>
+  <% @questions.each do  |question| %>
+    <%= question.content %>
+    <!-- check if options present - if yes - list options as a,b,c... -->
+  <% end %>
+</p>
+
 <%= link_to 'Edit', edit_form_path(@form) %> |
 <%= link_to 'Back', forms_path %>

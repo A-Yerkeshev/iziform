@@ -8,6 +8,7 @@ class FormsController < ApplicationController
 
   # GET /forms/1 or /forms/1.json
   def show
+    @questions = @form.questions
   end
 
   # GET /forms/new

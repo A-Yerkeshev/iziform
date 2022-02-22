@@ -10,13 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_21_144417) do
+ActiveRecord::Schema.define(version: 2022_02_22_072929) do
 
   create_table "forms", force: :cascade do |t|
     t.string "name"
     t.string "token"
     t.integer "status", default: 0
     t.text "data"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "questions", force: :cascade do |t|
+    t.integer "form_id"
+    t.text "content"
+    t.text "options"
+    t.string "question_type"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
