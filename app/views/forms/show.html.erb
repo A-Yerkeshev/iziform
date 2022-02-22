@@ -23,7 +23,14 @@
 <p>
   <% @questions.each do  |question| %>
     <%= question.content %>
-    <!-- check if options present - if yes - list options as a,b,c... -->
+      
+    <% if not question.options.empty? %> 
+      <ol type="a">
+      <% question.options.each do |option|%>
+        <li><%= option %></li>
+      <% end %>
+      </ol>
+    <% end %>
   <% end %>
 </p>
 
