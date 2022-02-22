@@ -18,7 +18,7 @@ task :upload_form, [:file] => :environment do |_t, args|
 
   (2..sheet.last_row).each do |i|
     row = sheet.row(i)
-    question = form.questions.new(content: row[0], question_type: row[1].to_i, options: row[2..-1])
+    question = form.questions.new(content: row[0], question_type: row[1].to_i, options: row[2..].compact)
     if question.save
       puts "\tQuestion '#{question.content}' was added successfully"
     else
