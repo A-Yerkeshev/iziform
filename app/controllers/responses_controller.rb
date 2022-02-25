@@ -1,5 +1,6 @@
 class ResponsesController < ApplicationController
   before_action :set_response, only: %i[ show edit update destroy ]
+  before_action :set_questions
 
   # GET /responses or /responses.json
   def index
@@ -61,6 +62,11 @@ class ResponsesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_response
       @response = Response.find(params[:id])
+    end
+
+    # Get questions array corresponding to form_id provided
+    def set_questions
+      @questions = Question.find_by(form_id: params[:form_id])
     end
 
     # Only allow a list of trusted parameters through.
