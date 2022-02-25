@@ -66,7 +66,7 @@ class ResponsesController < ApplicationController
 
     # Get questions array corresponding to form_id provided
     def set_questions
-      @questions = Question.find_all(form_id: params[:form_id])
+      @questions = Question.find_by(form_id: params[:form_id])
     end
 
     # Only allow a list of trusted parameters through.
