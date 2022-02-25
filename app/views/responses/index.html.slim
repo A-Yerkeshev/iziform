@@ -1,0 +1,32 @@
+p#notice
+  = notice
+h1
+  | Responses
+table
+  thead
+    tr
+      th
+        | Form
+      th
+        | Content
+      th
+        | Respondent
+      th[colspan="3"]
+  tbody
+    - @responses.each do |response|
+      tr
+
+      td
+        = response.form_id
+      td
+        = response.content
+      td
+        = response.respondent
+      td
+        = link_to 'Show', response
+      td
+        = link_to 'Edit', edit_response_path(response)
+      td
+        = link_to 'Destroy', response, method: :delete, data: { confirm: 'Are you sure?' }
+br
+= link_to 'New Response', new_response_path

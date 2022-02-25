@@ -1,0 +1,17 @@
+p#notice
+  = notice
+p
+  strong
+    | Form:
+  = @response.form_id
+p
+  strong
+    | Content:
+  = @response.content
+p
+  strong
+    | Respondent:
+  = @response.respondent
+= link_to 'Edit', edit_response_path(@response)
+|  | 
+= link_to 'Back', responses_path

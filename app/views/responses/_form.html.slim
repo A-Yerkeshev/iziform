@@ -1,0 +1,22 @@
+= form_with(model: response) do |form|
+  - if response.errors.any?
+    #error_explanation
+
+    h2
+      = pluralize(response.errors.count, "error")
+      |  prohibited this response from being saved:
+    ul
+      - response.errors.each do |error|
+        li
+          = error.full_message
+  .field
+    = form.label :form_id
+    = form.text_field :form_id
+  .field
+    = form.label :content
+    = form.text_area :content
+  .field
+    = form.label :respondent
+    = form.text_field :respondent
+  .actions
+    = form.submit

@@ -1,0 +1,29 @@
+p#notice
+  = notice
+p
+  strong
+    | Name:
+  = @form.name
+p
+  strong
+    | Token:
+  = @form.token
+p
+  strong
+    | Status:
+  = @form.status
+p
+  strong
+    | Data:
+  = @form.data
+p
+  - @questions.each do  |question|
+    = question.content
+    - if not question.options.empty?
+      ol[type="a"]
+        - question.options.each do |option|
+          li
+            = option
+= link_to 'Edit', edit_form_path(@form)
+|  | 
+= link_to 'Back', forms_path
