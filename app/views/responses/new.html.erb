@@ -12,9 +12,9 @@
           
       <% when 1 %>
         <% question.options.each do |option| %>
-          <%= f.label(:content, option)  %>
-          <%= f.radio_button(:content, option) %>
-        <% end %>
+          <%= label_tag("#{question.id}_#{option}", option)  %>
+          <%= radio_button_tag(question.id, option) %>
+          <% end %>
           
       <% when 2 %>
         <%= f.select(:content, question.options, {}, multiple: true, size: 10) %>
