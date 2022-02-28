@@ -35,6 +35,6 @@ table
       td
         = link_to 'Fill', "responses/new?form_id=#{form.id}"
       td
-        = link_to 'Responses', "forms/#{form.id}/responses"
+        = link_to 'Responses', "responses?form_id=#{form.id}"
 br
 = link_to 'New Form', new_form_path
