@@ -20,7 +20,8 @@
         <%= select_tag("response[content][#{question.id}]", options_for_select(question.options), multiple: true, size: 10 ) %>
       <% end %>
   <% end %></br>
-    
+  
+  <%= f.hidden_field :form_id %>
   <%= f.submit 'Submit answers' %>
 <% end %>
  

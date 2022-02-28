@@ -1,6 +1,7 @@
 class ResponsesController < ApplicationController
   before_action :set_response, only: %i[ show edit update destroy ]
   before_action :set_questions
+  before_action :set_form, only: %i[new]
 
   # GET /responses or /responses.json
   def index
@@ -13,7 +14,7 @@ class ResponsesController < ApplicationController
 
   # GET /responses/new
   def new
-    @response = Response.new
+    @response = Response.new(form_id: @form.id)
   end
 
   # GET /responses/1/edit
@@ -23,8 +24,6 @@ class ResponsesController < ApplicationController
   # POST /responses or /responses.json
   def create
     @response = Response.new(response_params)
-
-    byebug
 
     respond_to do |format|
       if @response.save
@@ -71,8 +70,12 @@ class ResponsesController < ApplicationController
       @questions = Question.where(form_id: params[:form_id])
     end
 
+    def set_form
+      @form = Form.find_by_id(params[:form_id])
+    end
+
     # Only allow a list of trusted parameters through.
     def response_params
-      params.require(:response).permit(:form_id, :respondent, content:[])
+      params.require(:response).permit(:form_id, :respondent, content:{})
     end
 end
