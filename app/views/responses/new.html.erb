@@ -1,6 +1,6 @@
 <h1>New Response</h1>
 
-<%= form_with(url: 'responses/new', scope: :response, local: true) do  |f| %>
+<%= form_tag('responses/new') do %>
   
   <%  @questions.each do |question| %>
     
@@ -8,7 +8,7 @@
     
     <% case question.question_type
       when 0 %>
-        <%= f.text_area(:content, value: '') %>
+        <%= text_area_tag(question.id) %>
           
       <% when 1 %>
         <% question.options.each do |option| %>
@@ -17,11 +17,11 @@
           <% end %>
           
       <% when 2 %>
-        <%= f.select(:content, question.options, {}, multiple: true, size: 10) %>
+        <%= select_tag(question.id.to_s, options_for_select(question.options), multiple: true, size: 10 ) %>
       <% end %>
   <% end %></br>
     
-  <%= f.submit('Submit answers') %>
+  <%= submit_tag 'Submit answers' %>
 <% end %>
  
 <%= link_to 'Back', responses_path %>
