@@ -24,6 +24,8 @@ class ResponsesController < ApplicationController
   def create
     @response = Response.new(response_params)
 
+    byebug
+
     respond_to do |format|
       if @response.save
         format.html { redirect_to response_url(@response), notice: "Response was successfully created." }
@@ -71,6 +73,6 @@ class ResponsesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def response_params
-      params.require(:response).permit(:form_id, :content, :respondent)
+      params.require(:response).permit(:form_id, :respondent, content:[])
     end
 end
