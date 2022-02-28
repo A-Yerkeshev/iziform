@@ -12,8 +12,9 @@
           
       <% when 1 %>
         <% question.options.each do |option| %>
-          <%= radio_button_tag("response[content][#{question.id}]", option) %>
+          
           <%= label_tag("response_content_#{question.id}_#{option}", option)  %>
+          <%= radio_button_tag("response[content][#{question.id}]", option) %>
           <% end %>
           
       <% when 2 %>
@@ -21,6 +22,9 @@
       <% end %>
   <% end %></br>
   
+  <%= label_tag('response_respondent', 'Respondent') %>
+  <%= text_field_tag('response[respondent]') %></br>
+    
   <%= f.hidden_field :form_id %>
   <%= f.submit 'Submit answers' %>
 <% end %>

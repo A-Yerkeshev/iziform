@@ -9,10 +9,12 @@ h1
     = text_area_tag("response[content][#{question.id}]")
   - when 1
     - question.options.each do |option|
-      = radio_button_tag("response[content][#{question.id}]", option)
       = label_tag("response_content_#{question.id}_#{option}", option)
+      = radio_button_tag("response[content][#{question.id}]", option)
   - when 2
     = select_tag("response[content][#{question.id}]", options_for_select(question.options), multiple: true, size: 10 )
+= label_tag('response_respondent', 'Respondent')
+= text_field_tag('response[respondent]')
 = f.hidden_field :form_id
 = f.submit 'Submit answers'
 = link_to 'Back', responses_path
