@@ -1,17 +1,18 @@
 h1
   | New Response
-= form_with(url: 'responses/new', scope: :response, local: true) do  |f|
+= form_for(@response) do |f|
   - @questions.each do |question|
     h2
       = question.content
     - case question.question_type
     -       when 0
-    = f.text_area(:content, value: '')
+    = text_area_tag("response[content][#{question.id}]")
   - when 1
     - question.options.each do |option|
-      = f.label(:content, option)
-      = f.radio_button(:content, option)
+      = radio_button_tag("response[content][#{question.id}]", option)
+      = label_tag("response_content_#{question.id}_#{option}", option)
   - when 2
-    = f.select(:content, question.options, {}, multiple: true, size: 10)
-= f.submit('Submit answers')
+    = select_tag("response[content][#{question.id}]", options_for_select(question.options), multiple: true, size: 10 )
+= f.hidden_field :form_id
+= f.submit 'Submit answers'
 = link_to 'Back', responses_path
