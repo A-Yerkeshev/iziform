@@ -1,0 +1,51 @@
+<h1>New Response</h1>
+
+<%= form_for(@response, {html: {id: 'response-form',class: ['carousel', 'slide'],data: {ride: 'carousel'}}}) do |f| %>
+
+  <div class="carousel-inner">
+
+    <%  @questions.each do |question| %>
+
+    <div class= "carousel-item">
+
+      <h2><%= question.content %></h2>
+
+      <% case question.question_type when 0 %>
+            <%= text_area_tag("response[content][#{question.id}]") %>
+
+      <% when 1 %>
+            <% question.options.each do |option| %>
+
+            <%= label_tag("response_content_#{question.id}_#{option}", option)  %>
+            <%= radio_button_tag("response[content][#{question.id}]", option) %>
+      <% end %>
+
+      <% when 2 %>
+            <%= select_tag("response[content][#{question.id}]", options_for_select(question.options), multiple: true, size: 10 ) %>
+      <% end %>
+
+    </div>
+    <% end %>
+
+    <div calss= "carousel-item">
+      <%= label_tag('response_respondent', 'Respondent') %>
+      <%= text_field_tag('response[respondent]') %>
+
+      <%= f.hidden_field :form_id %>
+      <%= f.submit 'Submit answers' %>
+    </div>
+
+  </div>
+
+  <!-- Carousel controllers -->
+  <a class="carousel-control-prev text-dark" href="#response-form" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next text-dark" href="#response-form" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+<% end %>
+
+<%= link_to 'Back', responses_path %>
