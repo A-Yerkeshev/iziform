@@ -23,8 +23,8 @@
         <td><%= link_to 'Show', form %></td>
         <td><%= link_to 'Edit', edit_form_path(form) %></td>
         <td><%= link_to 'Destroy', form, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <td><%= link_to 'Fill', "responses/new?form_id=#{form.id}" %></td>
-        <td><%= link_to 'Responses', "responses?form_id=#{form.id}" %></td>
+        <td><%= link_to 'Fill', new_response_path(form_id: form.id) %></td>
+        <td><%= link_to 'Responses', responses_path(form_id: form.id) %></td>
       </tr>
     <% end %>
   </tbody>

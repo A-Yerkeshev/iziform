@@ -33,8 +33,8 @@ table
       td
         = link_to 'Destroy', form, method: :delete, data: { confirm: 'Are you sure?' }
       td
-        = link_to 'Fill', "responses/new?form_id=#{form.id}"
+        = link_to 'Fill', new_response_path(form_id: form.id)
       td
-        = link_to 'Responses', "responses?form_id=#{form.id}"
+        = link_to 'Responses', responses_path(form_id: form.id)
 br
 = link_to 'New Form', new_form_path
