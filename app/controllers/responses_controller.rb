@@ -5,7 +5,11 @@ class ResponsesController < ApplicationController
 
   # GET /responses or /responses.json
   def index
-    @responses = Response.all
+    if params[:form_id]
+      @responses = Response.where(form_id: params[:form_id])
+    else
+      @responses = Response.all
+    end
   end
 
   # GET /responses/1 or /responses/1.json
