@@ -1,32 +1,38 @@
 p#notice
   = notice
-h1
-  | Forms
 
-= link_to 'New Form', new_form_path
+.row
+  .col
+    h1
+      | Forms
 
 - @forms.each do |form|
-  .row.border.mt-2.p-1
+  .row.mt-5
     .row
-      .col-auto.mb-3
+      .col
         h4
           = form.name
-      .col-auto.mb-3
-        .btn-group
-          = link_to 'Show', form, class: 'btn btn-success'
-          = link_to 'Fill', new_response_path(form_id: form.id), class: 'btn btn-success'
-          = link_to 'Responses', responses_path(form_id: form.id), class: 'btn btn-success'
-          = link_to 'Edit', edit_form_path(form), class: 'btn btn-success'
-          = link_to 'Destroy', form, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-success'
     .row
-      .col-auto.mb-3
+      .col-auto
         span
           'Created at:
         em
           = form.created_at.strftime("%d/%m/%y, %H:%M")
-      .col-auto.mb-3
+    .row
+      .col-auto
         span
           'Last updated at:
         em
           = form.updated_at.strftime("%d/%m/%y, %H:%M")
+    .row.mt-3
+      .col-auto
+        .btn-group
+          = link_to 'Show', form, class: 'btn btn-secondary'
+          = link_to 'Fill', new_response_path(form_id: form.id), class: 'btn btn-secondary'
+          = link_to 'Responses', responses_path(form_id: form.id), class: 'btn btn-secondary'
+          = link_to 'Edit', edit_form_path(form), class: 'btn btn-secondary'
+          = link_to 'Destroy', form, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-secondary'
 
+.row.mt-5
+  .col
+    = link_to 'New Form', new_form_path, class: 'btn btn-primary'

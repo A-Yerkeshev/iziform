@@ -2,19 +2,26 @@ p#notice
   = notice
 
 .row
-  h2
-    = @form.name
+  .col
+    h2
+      = @form.name
 
 - @questions.each do  |question|
-  h6
-    = question.content
-  - if not question.options.empty?
-    ol.list-group.w-50.mb-3[type="a"]
-      - question.options.each do |option|
-        li.list-group-item
-          = option
+  .row.mt-5
+    .col
+      h6
+        = question.content
 
-.row.justify-content-start
+      ol.list-group.mb-3
+        - options = question.options
+        - options = ['...'] if options.empty?
+        - options.each do |option|
+          .row
+            .col-md-8.col-xl-6
+              li.list-group-item
+                = option
+
+.row.justify-content-start.mt-5
   .col-auto
     = link_to 'Edit', edit_form_path(@form), class: 'btn btn-success'
   .col-auto
