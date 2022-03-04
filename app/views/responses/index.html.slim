@@ -1,7 +1,7 @@
 = link_to 'New Response', new_response_path
 
 - @responses.each do |response|
-  .card
+  .card.mb-3
     .card-body
       - response.content.each do |question, options|
         h6.card-title
