@@ -1,32 +1,23 @@
-p#notice
-  = notice
-h1
-  | Responses
-table
-  thead
-    tr
-      th
-        | Form
-      th
-        | Content
-      th
-        | Respondent
-      th[colspan="3"]
-  tbody
-    - @responses.each do |response|
-      tr
-
-      td
-        = response.form_id
-      td
-        = response.content
-      td
-        = response.respondent
-      td
-        = link_to 'Show', response
-      td
-        = link_to 'Edit', edit_response_path(response)
-      td
-        = link_to 'Destroy', response, method: :delete, data: { confirm: 'Are you sure?' }
-br
 = link_to 'New Response', new_response_path
+
+- @responses.each do |response|
+  .card
+    .card-body
+      - response.content.each do |question, options|
+        h6.card-title
+          = question
+        ul.list-group
+          - options.each do |option, checked|
+            - if checked
+              li.list-group-item.list-group-item-success
+                = option
+            - else
+              li.list-group-item
+                = option
+        br
+      span
+        'Respondent:
+        = response.respondent
+      br
+      = link_to('Edit', edit_response_path(response), class: 'card-link')
+      = link_to('Destroy', response, method: :delete, data: { confirm: 'Are you sure?' }, class: 'card-link')
