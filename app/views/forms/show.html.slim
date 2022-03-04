@@ -9,7 +9,7 @@ p#notice
   h6
     = question.content
   - if not question.options.empty?
-    ol.list-group.mb-3[type="a"]
+    ol.list-group.w-50.mb-3[type="a"]
       - question.options.each do |option|
         li.list-group-item
           = option

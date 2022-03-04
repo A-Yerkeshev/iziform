@@ -1,6 +1,6 @@
 h1
   | New Response
-= form_for(@response, {html: {id: 'response-form', class: [], data: {}}}) do |f|
+= form_for(@response, {html: {id: 'response-form', class: ['w-50'], data: {}}}) do |f|
   - @questions.each do |question|
     - case question.question_type when 0
       .form-group
