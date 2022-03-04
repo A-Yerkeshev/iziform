@@ -1,29 +1,21 @@
 p#notice
   = notice
-p
-  strong
-    | Name:
-  = @form.name
-p
-  strong
-    | Token:
-  = @form.token
-p
-  strong
-    | Status:
-  = @form.status
-p
-  strong
-    | Data:
-  = @form.data
-p
-  - @questions.each do  |question|
+
+.row
+  h2
+    = @form.name
+
+- @questions.each do  |question|
+  h6
     = question.content
-    - if not question.options.empty?
-      ol[type="a"]
-        - question.options.each do |option|
-          li
-            = option
-= link_to 'Edit', edit_form_path(@form)
-|  | 
-= link_to 'Back', forms_path
+  - if not question.options.empty?
+    ol.list-group.mb-3[type="a"]
+      - question.options.each do |option|
+        li.list-group-item
+          = option
+
+.row.justify-content-start
+  .col-auto
+    = link_to 'Edit', edit_form_path(@form), class: 'btn btn-success'
+  .col-auto
+    = link_to 'Back', forms_path, class: 'btn btn-success'
