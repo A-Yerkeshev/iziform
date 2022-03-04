@@ -6,25 +6,27 @@ h1
 = link_to 'New Form', new_form_path
 
 - @forms.each do |form|
-  .row.border.justify-content-between.mt-2.p-1
-    .col-auto.mb-3
-      h4
-        = form.name
-    .col-auto.mb-3
-      .row.mb-3
+  .row.border.mt-2.p-1
+    .row
+      .col-auto.mb-3
+        h4
+          = form.name
+      .col-auto.mb-3
+        .btn-group
+          = link_to 'Show', form, class: 'btn btn-success'
+          = link_to 'Fill', new_response_path(form_id: form.id), class: 'btn btn-success'
+          = link_to 'Responses', responses_path(form_id: form.id), class: 'btn btn-success'
+          = link_to 'Edit', edit_form_path(form), class: 'btn btn-success'
+          = link_to 'Destroy', form, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-success'
+    .row
+      .col-auto.mb-3
         span
           'Created at:
         em
           = form.created_at.strftime("%d/%m/%y, %H:%M")
-      .row
+      .col-auto.mb-3
         span
           'Last updated at:
         em
           = form.updated_at.strftime("%d/%m/%y, %H:%M")
-    .col-auto.mb-3
-      .btn-group
-        = link_to 'Show', form, class: 'btn btn-success'
-        = link_to 'Fill', new_response_path(form_id: form.id), class: 'btn btn-success'
-        = link_to 'Responses', responses_path(form_id: form.id), class: 'btn btn-success'
-        = link_to 'Edit', edit_form_path(form), class: 'btn btn-success'
-        = link_to 'Destroy', form, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-success'
+
