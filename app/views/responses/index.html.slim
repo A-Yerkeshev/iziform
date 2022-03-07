@@ -1,7 +1,10 @@
 .row
   .col
     h1
-      'Responses
+      - if params[:form_id]
+        = "Responses for #{@form.name}"
+      - else
+        'Responses
 
 - @responses.each_with_index do |response, i|
   .row.border.m-1.mt-3

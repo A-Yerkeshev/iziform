@@ -1,24 +1,23 @@
 p#notice
   = notice
-- @responses.each do |response|
-  .card.w-50.mb-3
-    .card-body
-      - response.content.each do |question, options|
-        h6.card-title
-          = question
-        ul.list-group
-          - options.each do |option, checked|
-            - if checked
-              li.list-group-item.list-group-item-success
-                = option
-            - else
-              li.list-group-item
-                = option
-        br
-      span
-        'Respondent:
-        = response.respondent
-      br
-      = link_to('Edit', edit_response_path(response), class: 'card-link')
-      = link_to('Destroy', response, method: :delete, data: { confirm: 'Are you sure?' }, class: 'card-link')
 
+.card.mb-3
+  .card-body
+    - @response.content.each do |question, options|
+      h6.card-title
+        = question
+      ul.list-group
+        - options.each do |option, checked|
+          - if checked
+            li.list-group-item.list-group-item-success
+              = option
+          - else
+            li.list-group-item
+              = option
+      br
+    span
+      'Respondent:
+      = @response.respondent
+    br
+    = link_to('Edit', edit_response_path(response), class: 'card-link')
+    = link_to('Back', responses_path, class: 'card-link')
