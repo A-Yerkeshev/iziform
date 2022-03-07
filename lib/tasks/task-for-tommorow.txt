@@ -1,10 +1,4 @@
-1. Style /responses with rows and columns.
-Each response is row, each
--respondent
--time
-
-2. Create root page
--jumbotron 'Welcome to iziform'
--number of forms
--number of responses
--new form button
+1. Links to /responses/ and /forms/ from jumbotron
+2. Display form name on /responses/new
+3. Display form and respondent name on responses/:response_id
+4. Restyle /responses/new with rows and columns
