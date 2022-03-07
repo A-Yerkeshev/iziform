@@ -2,7 +2,7 @@
   .col
     h1
       - if params[:form_id]
-        = "Responses for #{@form.name}"
+        = "Responses for \"#{@form.name}\""
       - else
         'Responses
 
@@ -22,7 +22,3 @@
       .btn-group
         = link_to 'View', response, class: 'btn btn-secondary'
         = link_to 'Delete', response, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-secondary'
-
-.row.mt-5
-  .col
-    = link_to 'New Response', new_response_path, class: 'btn btn-primary'
