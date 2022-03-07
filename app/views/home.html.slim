@@ -1,0 +1,26 @@
+.jumbotron.border.mt-4.p-4.text-center
+  .row
+    .col
+      h1.display-4
+        'Welcome to iziform
+  .row
+    .col
+      p.lead
+        'Create forms and let people answer them.
+  .row.justify-content-center
+    .col-auto
+      span
+        = "#{@forms_count} forms"
+    .col-auto
+      span
+        = "#{@responses_count} responses"
+  .row
+    .col
+      hr.my-4
+  .row
+    .col
+      p.lead
+        'Create your first form:
+  .row
+    .col
+      = link_to 'New Form', new_form_path, class: 'btn btn-primary'
