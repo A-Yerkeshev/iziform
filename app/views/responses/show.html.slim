@@ -1,11 +1,13 @@
 p#notice
   = notice
 
-.card.mb-3
-  .card-body
-    - @response.content.each do |question, options|
+- @response.content.each do |question, options|
+  .row
+    .col
       h6.card-title
         = question
+  .row.mb-5
+    .col.col-md-8.col-xl-6
       ul.list-group
         - options.each do |option, checked|
           - if checked
@@ -14,10 +16,13 @@ p#notice
           - else
             li.list-group-item
               = option
-      br
+.row
+  .col
     span
       'Respondent:
       = @response.respondent
-    br
-    = link_to('Edit', edit_response_path(response), class: 'card-link')
-    = link_to('Back', responses_path, class: 'card-link')
+.row.justify-content-start.mt-5
+  .col-auto
+    = link_to('Edit', edit_response_path(response), class: 'btn btn-primary')
+  .col-auto
+    = link_to('Back', responses_path, class: 'btn btn-primary')
