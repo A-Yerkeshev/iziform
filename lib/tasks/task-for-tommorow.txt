@@ -1,0 +1,10 @@
+1. Style /responses with rows and columns.
+Each response is row, each
+-respondent
+-time
+
+2. Create root page
+-jumbotron 'Welcome to iziform'
+-number of forms
+-number of responses
+-new form button

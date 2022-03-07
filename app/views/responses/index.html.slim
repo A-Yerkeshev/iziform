@@ -1,23 +1,25 @@
-= link_to 'New Response', new_response_path
+.row
+  .col
+    h1
+      'Responses
 
-- @responses.each do |response|
-  .card.w-50.mb-3
-    .card-body
-      - response.content.each do |question, options|
-        h6.card-title
-          = question
-        ul.list-group
-          - options.each do |option, checked|
-            - if checked
-              li.list-group-item.list-group-item-success
-                = option
-            - else
-              li.list-group-item
-                = option
-        br
+- @responses.each_with_index do |response, i|
+  .row.border.m-1.mt-3
+    .col-auto.p-2
+      = i+1
+    .col-10.col-sm-3.col-lg-2.p-2
       span
-        'Respondent:
         = response.respondent
-      br
-      = link_to('Edit', edit_response_path(response), class: 'card-link')
-      = link_to('Destroy', response, method: :delete, data: { confirm: 'Are you sure?' }, class: 'card-link')
+    .col-10.col-sm-5.col-lg-3.p-2
+      span
+        'Created at:
+        em
+          = response.created_at.strftime("%d/%m/%y, %H:%M")
+    .col.col-lg-3.p-2
+      .btn-group
+        = link_to 'View', response, class: 'btn btn-secondary'
+        = link_to 'Delete', response, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-secondary'
+
+.row.mt-5
+  .col
+    = link_to 'New Response', new_response_path, class: 'btn btn-primary'

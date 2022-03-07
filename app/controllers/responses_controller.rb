@@ -11,41 +11,41 @@ class ResponsesController < ApplicationController
       @responses = Response.all
     end
 
-    @responses.each do |response|
-      # Because response.content has following format: {question_id: answer}
-      # in order to display full response on screen we need to replace content
-      # with following format:
-      # {
-      #   question_text: {
-      #     option1: false,
-      #     option2: false,
-      #     option3: true
-      #   }
-      # }
+    # @responses.each do |response|
+    #   # Because response.content has following format: {question_id: answer}
+    #   # in order to display full response on screen we need to replace content
+    #   # with following format:
+    #   # {
+    #   #   question_text: {
+    #   #     option1: false,
+    #   #     option2: false,
+    #   #     option3: true
+    #   #   }
+    #   # }
 
-      new_content = {}
+    #   new_content = {}
 
-      response.content.each do |question_id, answer|
-        question = get_question(question_id)
-        new_content[question.content] = {}
+    #   response.content.each do |question_id, answer|
+    #     question = get_question(question_id)
+    #     new_content[question.content] = {}
 
-        # Fill new content hash and mark answers based on question type
-        case question.question_type
-        when 0 # -text
-          new_content[question.content][answer] = false
-        when 1 # -one choice
-          question.options.each do |option|
-            new_content[question.content][option] = option == answer
-          end
-        when 2 # -multiple choice
-          question.options.each do |option|
-            new_content[question.content][option] = answer.include? option
-          end
-        end
-      end
+    #     # Fill new content hash and mark answers based on question type
+    #     case question.question_type
+    #     when 0 # -text
+    #       new_content[question.content][answer] = false
+    #     when 1 # -one choice
+    #       question.options.each do |option|
+    #         new_content[question.content][option] = option == answer
+    #       end
+    #     when 2 # -multiple choice
+    #       question.options.each do |option|
+    #         new_content[question.content][option] = answer.include? option
+    #       end
+    #     end
+    #   end
 
-      response.content = new_content
-    end
+    #   response.content = new_content
+    # end
   end
 
   # GET /responses/1 or /responses/1.json
