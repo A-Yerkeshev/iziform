@@ -1,7 +1,26 @@
+= stylesheet_link_tag 'owl.carousel.min'
+= stylesheet_link_tag 'owl.theme.default.min'
+
 .row
   .col
     h1
       'New Response
+
+.row
+  .col
+    .owl-carousel.owl-theme
+      .item
+        h4
+          '1
+      .item
+        h4
+          '2
+      .item
+        h4
+          '3
+
+
+
 .row
   .col.col-md-8.col-xl-6
     = form_for(@response, {html: {id: 'response-form', class: [], data: {}}}) do |f|
@@ -21,7 +40,7 @@
                 = question.content
           - question.options.each do |option|
             .row
-              .col.ml-3.form-check
+              .col.form-check
                 = radio_button_tag("response[content][#{question.id}]", option, false, class: 'form-check-input')
                 = label_tag("response_content_#{question.id}_#{option}", option, class: 'form-check-label')
         - when 2
