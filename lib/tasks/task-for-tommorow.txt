@@ -1,3 +1,2 @@
-2. Display form name on /responses/new
 3. Display form and respondent name on responses/:response_id
 4. Add /forms/new page
