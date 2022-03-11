@@ -20,7 +20,9 @@
   .row
     .col
       p.lead
-        'Create your first form:
-  .row
-    .col
+        | Browse all forms or Create your own one:
+  .row.justify-content-center
+    .col-auto
+      = link_to 'Explore', forms_path, class: 'btn btn-primary'
+    .col-auto
       = link_to 'New Form', new_form_path, class: 'btn btn-primary'
