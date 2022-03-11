@@ -14,6 +14,9 @@ class FormsController < ApplicationController
   # GET /forms/new
   def new
     @form = Form.new
+
+    # Create first blank question for form field
+    @blank_question = Question.new
   end
 
   # GET /forms/1/edit

@@ -2,5 +2,9 @@
   .col
     h1
       | New Form
-= render 'form', form: @form
-= link_to 'Back', forms_path
+.row
+  .col
+    = render 'form', form: @form
+.row
+  .col
+    = link_to 'Back', forms_path

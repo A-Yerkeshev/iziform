@@ -1,9 +1,23 @@
 .nested-fields
-  .field
-    = f.label :content
-    br
-    = f.text_field :content
-  / .field
-  /   = f.check_box :done
-  /   = f.label :done
-  = link_to_remove_association "Remove question", f
+  .row
+    .col.field
+      .row
+        .col
+          = f.radio_button :question_type, 0
+          = f.label :question_type, 'Text input'
+      .row
+        .col
+          = f.radio_button :question_type, 1
+          = f.label :question_type, 'Single-choice'
+      .row
+        .col
+          = f.radio_button :question_type, 2
+          = f.label :question_type, 'Multiple choice'
+      .row
+        .col
+          = f.label :content
+      .row
+        .col
+          = f.text_field :content
+        .col
+          = link_to_remove_association "Remove question", f, class: 'btn btn-secondary'

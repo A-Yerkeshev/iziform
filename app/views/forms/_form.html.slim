@@ -1,40 +1,19 @@
 = form_for @form do |f|
-  .field
-    = f.label :name
-    br
-    = f.text_field :name
-  h3
-    | Questions
-  #questions
-    = f.fields_for :questions do |question|
-      = render 'question_fields', f: question
-    .links
-      = link_to_add_association 'Add question', f, :questions
-  = f.submit
-
-
-/ = form_with(model: form) do |form|
-/   - if form.errors.any?
-/     #error_explanation
-
-/     h2
-/       = pluralize(form.errors.count, "error")
-/       |  prohibited this form from being saved:
-/     ul
-/       - form.errors.each do |error|
-/         li
-/           = error.full_message
-/   .field
-/     = form.label :name
-/     = form.text_field :name
-/   .field
-/     = form.label :token
-/     = form.text_field :token
-/   .field
-/     = form.label :status
-/     = form.number_field :status
-/   .field
-/     = form.label :data
-/     = form.text_area :data
-/   .actions
-/     = form.submit
+  .row
+    .col
+      .field
+        = f.label :name, 'Form name'
+        br
+        = f.text_field :name
+  .row
+    .col#questions
+      = f.fields_for :questions do |question|
+        .row
+          .col
+            = render 'question_fields', f: question
+  .row
+    .col.links
+      = link_to_add_association 'Add question', f, :questions, class: 'btn btn-primary'
+  .row
+    .col
+      = f.submit
