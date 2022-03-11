@@ -1,22 +1,11 @@
 class ResponsesController < ApplicationController
   before_action :set_response, only: %i[show edit update destroy]
+  before_action :set_form, only: %i[index show new]
   before_action :set_questions, only: %i[show new]
-  before_action only: %i[index new] do
-    @form = Form.first
-    # if (id = params[:form_id])
-    #   set_form(id)
-    # else
-    #   set_form(@response.form_id)
-    # end
-  end
 
   # GET /responses or /responses.json
   def index
-    if params[:form_id]
-      @responses = Response.where(form_id: params[:form_id])
-    else
-      @responses = Response.all
-    end
+    @responses = params[:form_id] ? Response.where(form_id: params[:form_id]) : Response.all
   end
 
   # GET /responses/1 or /responses/1.json
@@ -35,9 +24,7 @@ class ResponsesController < ApplicationController
     new_content = {}
 
     @response.content.each do |question_id, answer|
-
-      question = get_question(question_id)
-
+      question = @questions.detect {|q| q.id.to_s == question_id}
 
       new_content[question.content] = {}
 
@@ -112,23 +99,16 @@ class ResponsesController < ApplicationController
       @response = Response.find(params[:id])
     end
 
-    # Get questions array corresponding to form_id provided
-    def set_questions
-      @questions = Question.where(form_id: params[:form_id])
+    def set_form
+      @form = @response&.form || Form.find_by_id(params[:form_id])
     end
 
-    # Get form corresponding to form_id provided
-    def set_form(id)
-      @form = Form.find_by_id(id)
+    def set_questions
+      @questions = @form ? Question.where(form_id: @form.id) : Question.where(form_id: params[:form_id])
     end
 
     # Only allow a list of trusted parameters through.
     def response_params
       params.require(:response).permit(:form_id, :respondent, content:{})
-    end
-
-    # Take question id - return question
-    def get_question(id)
-      Question.find_by_id(id)
     end
 end
