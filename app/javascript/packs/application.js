@@ -26,6 +26,7 @@ require("@rails/activestorage").start()
 require("channels")
 require("jquery")
 require("bootstrap")
+require("@nathanvda/cocoon")
 
 import $ from 'jquery';
 window.jQuery = $;
