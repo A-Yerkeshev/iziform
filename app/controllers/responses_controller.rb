@@ -1,7 +1,14 @@
 class ResponsesController < ApplicationController
-  before_action :set_response, only: %i[ show edit update destroy ]
-  before_action :set_questions
-  before_action :set_form, only: %i[ index new ]
+  before_action :set_response, only: %i[show edit update destroy]
+  before_action :set_questions, only: %i[show new]
+  before_action only: %i[index new] do
+    @form = Form.first
+    # if (id = params[:form_id])
+    #   set_form(id)
+    # else
+    #   set_form(@response.form_id)
+    # end
+  end
 
   # GET /responses or /responses.json
   def index
@@ -28,7 +35,10 @@ class ResponsesController < ApplicationController
     new_content = {}
 
     @response.content.each do |question_id, answer|
+
       question = get_question(question_id)
+
+
       new_content[question.content] = {}
 
       # Fill new content hash and mark answers based on question type
@@ -108,8 +118,8 @@ class ResponsesController < ApplicationController
     end
 
     # Get form corresponding to form_id provided
-    def set_form
-      @form = Form.find_by_id(params[:form_id])
+    def set_form(id)
+      @form = Form.find_by_id(id)
     end
 
     # Only allow a list of trusted parameters through.
