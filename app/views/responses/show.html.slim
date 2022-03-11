@@ -3,9 +3,9 @@
     h1
       = @form.name
 
-.row
+.row.mb-5
   .col
-    h3
+    h4
       = "Respondent: #{@response.respondent}"
 
 - @response.content.each do |question, options|
