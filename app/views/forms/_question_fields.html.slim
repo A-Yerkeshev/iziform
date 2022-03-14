@@ -7,41 +7,22 @@
             = f.label :content, 'Question'
         .row.mb-3
           .col.col-md-8.col-xl-6
-            = f.text_field :content, class: 'w-100'
+            = f.text_area :content, rows: 5, class: 'form-control'
     .row.mb-2
       .col
         | Question type
     .row.ps-2
       .col.field
-        = f.radio_button :question_type, 0
+        = f.radio_button :question_type, Question::QUESTION_TYPES[:text]
         = f.label :question_type, 'Text input'
     .row.ps-2
       .col.field
-        = f.radio_button :question_type, 1
+        = f.radio_button :question_type, Question::QUESTION_TYPES[:one_choice]
         = f.label :question_type, 'Single-choice'
     .row.mb-3.ps-2
       .col.field
-        = f.radio_button :question_type, 2
+        = f.radio_button :question_type, Question::QUESTION_TYPES[:multiple_choices]
         = f.label :question_type, 'Multiple-choice'
-    .row
-      .col.field
-        .row
-          .col
-            = f.label :options, 'Option 1'
-        .row
-          .col
-            = f.text_field :options
-    .row
-      .col.field
-        .row
-          .col
-            = f.label :options, 'Option 2'
-        .row
-          .col
-            = f.text_field :options
-    .row.mt-2
-      .col
-        = button_tag 'Add option', type: 'button', class: 'btn btn-primary'
     .row.mt-3
       .col
         = link_to_remove_association "Remove question", f, class: 'btn btn-secondary'

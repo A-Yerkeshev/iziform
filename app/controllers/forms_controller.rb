@@ -32,6 +32,7 @@ class FormsController < ApplicationController
         format.html { redirect_to form_url(@form), notice: "Form was successfully created." }
         format.json { render :show, status: :created, location: @form }
       else
+        byebug
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @form.errors, status: :unprocessable_entity }
       end
@@ -69,6 +70,16 @@ class FormsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def form_params
-      params.require(:form).permit(:name, :token, :status, :data)
+      form_raw_params = params.require(:form).permit(:name, :token, :status, :data, questions_attributes: %i[content question_type _destroy])
+      questions_attributes = form_raw_params.questions_attributes
+      questions_attributes.each do |key, attributes|
+        parts = attributes[:content].split('&&')
+        questions_attributes[key][:content] = parts[0]
+        questions_attributes[key][:options] = parts[1..]
+      end
+
+      form_raw_params.questions_attributes = questions_attributes
+
+      form_raw_params
     end
 end

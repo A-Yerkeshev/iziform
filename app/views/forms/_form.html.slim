@@ -7,7 +7,26 @@
       .row
         .col.col-md-8.col-xl-6
           = f.text_field :name, class: 'w-100'
-
+  .row
+    .col
+      p.mb-1
+        | Use '&&' in order to define anwser options to your question like so:
+  .row
+    .col
+      em
+        | What is your eye colour?
+  .row
+    .col
+      em
+        | &&brown
+  .row
+    .col
+      em
+        | &&green
+  .row.mb-5
+    .col
+      em
+        | &&blue
   .row
     .col#questions
       = f.fields_for :questions do |question|

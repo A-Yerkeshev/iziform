@@ -7,8 +7,8 @@ class Question < ApplicationRecord
     multiple_choices: 2
   }
 
-	validates :form_id, presence: true, numericality: { only_integer: true }
-	validates :content, presence: true
+	# validates :form_id, presence: true, numericality: { only_integer: true }
+	# validates :content, presence: true
 
 	serialize :options, Array
 end
