@@ -32,7 +32,6 @@ class FormsController < ApplicationController
         format.html { redirect_to form_url(@form), notice: "Form was successfully created." }
         format.json { render :show, status: :created, location: @form }
       else
-        byebug
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @form.errors, status: :unprocessable_entity }
       end
