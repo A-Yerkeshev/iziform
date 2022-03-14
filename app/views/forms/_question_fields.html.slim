@@ -1,23 +1,53 @@
-.nested-fields
-  .row
-    .col.field
-      .row
-        .col
-          = f.radio_button :question_type, 0
-          = f.label :question_type, 'Text input'
-      .row
-        .col
-          = f.radio_button :question_type, 1
-          = f.label :question_type, 'Single-choice'
-      .row
-        .col
-          = f.radio_button :question_type, 2
-          = f.label :question_type, 'Multiple choice'
-      .row
-        .col
-          = f.label :content
-      .row
-        .col
-          = f.text_field :content
-        .col
-          = link_to_remove_association "Remove question", f, class: 'btn btn-secondary'
+.row.nested-fields.mb-4
+  .col
+    .row
+      .col.field
+        .row
+          .col
+            = f.label :content, 'Question'
+        .row.mb-3
+          .col.col-md-8.col-xl-6
+            = f.text_field :content, class: 'w-100'
+    .row.mb-2
+      .col
+        | Question type
+    .row
+      .col.field
+        = f.radio_button :question_type, 0
+        = f.label :question_type, 'Text input'
+    .row
+      .col.field
+        = f.radio_button :question_type, 1
+        = f.label :question_type, 'Single-choice'
+    .row.mb-3
+      .col.field
+        = f.radio_button :question_type, 2
+        = f.label :question_type, 'Multiple-choice'
+    .row
+      .col.field
+        .row
+          .col
+            = f.label :options, 'Option 1'
+        .row
+          .col
+            = f.text_field :options
+    .row
+      .col.field
+        .row
+          .col
+            = f.label :options, 'Option 2'
+        .row
+          .col
+            = f.text_field :options
+    .row
+      .col.field
+        .row
+          .col
+            = f.label :options, 'Option 3'
+        .row
+          .col
+            = f.text_field :options
+    .row.mt-3
+      .col
+        = link_to_remove_association "Remove question", f, class: 'btn btn-secondary'
+        hr

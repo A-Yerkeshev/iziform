@@ -1,19 +1,23 @@
 = form_for @form do |f|
-  .row
-    .col
-      .field
-        = f.label :name, 'Form name'
-        br
-        = f.text_field :name
+  .row.mb-5
+    .col.field
+      .row
+        .col
+          = f.label :name, 'Form name'
+      .row
+        .col.col-md-8.col-xl-6
+          = f.text_field :name, class: 'w-100'
+
   .row
     .col#questions
       = f.fields_for :questions do |question|
-        .row
-          .col
-            = render 'question_fields', f: question
+        = render 'question_fields', f: question
+      .links
+        = link_to_add_association 'Add question', f, :questions, class: 'btn btn-primary'
+        hr
   .row
-    .col.links
-      = link_to_add_association 'Add question', f, :questions, class: 'btn btn-primary'
-  .row
-    .col
-      = f.submit
+    .col-auto
+      = f.submit class: 'btn btn-primary'
+    .col-auto
+      = link_to 'Back', forms_path, class: 'btn btn-secondary'
+
