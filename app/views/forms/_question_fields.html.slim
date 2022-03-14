@@ -1,4 +1,4 @@
-.row.nested-fields.mb-4
+.row.nested-fields.mb-4.ps-3
   .col
     .row
       .col.field
@@ -11,15 +11,15 @@
     .row.mb-2
       .col
         | Question type
-    .row
+    .row.ps-2
       .col.field
         = f.radio_button :question_type, 0
         = f.label :question_type, 'Text input'
-    .row
+    .row.ps-2
       .col.field
         = f.radio_button :question_type, 1
         = f.label :question_type, 'Single-choice'
-    .row.mb-3
+    .row.mb-3.ps-2
       .col.field
         = f.radio_button :question_type, 2
         = f.label :question_type, 'Multiple-choice'
@@ -39,14 +39,9 @@
         .row
           .col
             = f.text_field :options
-    .row
-      .col.field
-        .row
-          .col
-            = f.label :options, 'Option 3'
-        .row
-          .col
-            = f.text_field :options
+    .row.mt-2
+      .col
+        = button_tag 'Add option', type: 'button', class: 'btn btn-primary'
     .row.mt-3
       .col
         = link_to_remove_association "Remove question", f, class: 'btn btn-secondary'
