@@ -21,4 +21,5 @@
     .col.col-lg-3.p-2
       .btn-group
         = link_to 'View', response, class: 'btn btn-secondary'
+        = link_to('Edit', edit_response_path(response), class: 'btn btn-primary')
         = link_to 'Delete', response, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-secondary'

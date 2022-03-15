@@ -25,12 +25,11 @@ require("@rails/ujs").start()
 require("@rails/activestorage").start()
 require("channels")
 require("jquery")
-require("bootstrap")
-require("@nathanvda/cocoon")
 
 import $ from 'jquery';
 window.jQuery = $;
 window.$ = $;
 
+require("bootstrap")
+require("@nathanvda/cocoon")
 require("packs/src/owl.carousel.min.js")
-require("packs/src/main.js")
