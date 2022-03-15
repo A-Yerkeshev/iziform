@@ -1,1 +1,4 @@
-1. Ignore && sign if question type is 0
+1. Complete carousel styling
+2. Placeholder if responses text input is empty
+3. Finish testing for new_form
+4. Style edit page
