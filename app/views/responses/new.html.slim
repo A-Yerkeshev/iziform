@@ -3,15 +3,15 @@
     h1
       = @form.name
 
-.row
+.row.justify-content-center
   .col-md-8.col-xl-6
-    = form_for(@response, {html: {id: 'response-form', class: [], data: {}}}) do |f|
-      .owl-carousel.owl-theme
+    = form_for(@response, {html: {id: 'response-form'}}) do |f|
+      .owl-carousel.owl-theme.shadow.p-4.mt-3.bg-white
         - @questions.each do |question|
-          .item.mt-5
-            .row
+          .item
+            .row.mb-3
               .col-12
-                h6
+                h4
                   = question.content
             .row
               .col-12
@@ -25,7 +25,7 @@
                     .row
                       .col-12
                         .form-check
-                          = radio_button_tag("response[content][#{question.id}]", option, false, class: 'form-check-input', onchange: "$('.owl-carousel').owlCarousel().trigger('next.owl.carousel')")
+                          = radio_button_tag("response[content][#{question.id}]", option, false, class: 'form-check-input', onchange: 'nextSlide()')
                           = label_tag("response_content_#{question.id}_#{option}", option, class: 'form-check-label')
                 - when 2
                   - question.options.each do |option|
@@ -35,7 +35,7 @@
                           = check_box_tag("response[content][#{question.id}]", option, false, class: 'form-check-input')
                           = label_tag("response_content_#{question.id}", option, class: 'form-check-label')
                   .mt-5
-                    button.btn.btn-secondary.mt-5 type="button" onclick="$('.owl-carousel').owlCarousel().trigger('next.owl.carousel')"
+                    button.btn.btn-secondary.mt-5 type="button" onclick="nextSlide()"
                       =">>"
         .item
           .row
@@ -58,3 +58,7 @@ javascript:
     nav:true,
     items: 1
   })
+
+  function nextSlide() {
+    $('.owl-carousel').owlCarousel().trigger('next.owl.carousel')
+  }
