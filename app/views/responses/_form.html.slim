@@ -1,22 +1,58 @@
-= form_with(model: response) do |form|
-  - if response.errors.any?
-    #error_explanation
+= form_for(@response, {html: {id: 'response-form'}}) do |f|
+  .owl-carousel.owl-theme
+    - @questions.each do |question|
+      .item.p-1
+        .row.mb-3
+          .col-12
+            h4
+              = question.content
+        .row
+          .col-12
+            - case question.question_type when 0
+              = text_area_tag("response[content][#{question.id}]", '', class: 'form-control', rows: 4)
+            - when 1
+              - question.options.each do |option|
+                .row
+                  .col-12
+                    .form-check
+                      = radio_button_tag("response[content][#{question.id}]", option, false, class: 'form-check-input', onchange: 'nextSlide()')
+                      = label_tag("response_content_#{question.id}_#{option}", option, class: 'form-check-label')
+            - when 2
+              - question.options.each do |option|
+                .row
+                  .col-12
+                    .form-check
+                      = check_box_tag("response[content][#{question.id}]", option, false, class: 'form-check-input')
+                      = label_tag("response_content_#{question.id}", option, class: 'form-check-label')
+    .item
+      .row
+        .col
+          h6
+            = label_tag('response_respondent', 'Respondent')
+      .row
+        .col
+          = text_field_tag('response[respondent]', '', class: 'form-control')
+      .row.mt-5
+        .col-auto
+          = f.hidden_field :form_id
+          = f.submit('Submit', class: 'btn btn-primary')
+  .row.justify-content-between
+    .col-auto
+      button.btn.btn-outline-secondary.rounded-circle type="button" onclick="previousSlide()"
+        i.fa-solid.fa-angles-left
+    .col-auto
+      button.btn.btn-outline-primary.rounded-circle type="button" onclick="nextSlide()"
+        i.fa-solid.fa-angles-right
 
-    h2
-      = pluralize(response.errors.count, "error")
-      |  prohibited this response from being saved:
-    ul
-      - response.errors.each do |error|
-        li
-          = error.full_message
-  .field
-    = form.label :form_id
-    = form.text_field :form_id
-  .field
-    = form.label :content
-    = form.text_area :content
-  .field
-    = form.label :respondent
-    = form.text_field :respondent
-  .actions
-    = form.submit
+javascript:
+  $('.owl-carousel').owlCarousel({
+    items: 1
+  })
+
+  function previousSlide() {
+    $('.owl-carousel').owlCarousel().trigger('prev.owl.carousel')
+  }
+
+  function nextSlide() {
+    $('.owl-carousel').owlCarousel().trigger('next.owl.carousel')
+  }

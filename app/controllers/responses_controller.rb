@@ -1,7 +1,7 @@
 class ResponsesController < ApplicationController
   before_action :set_response, only: %i[show edit update destroy]
-  before_action :set_form, only: %i[index show new]
-  before_action :set_questions, only: %i[show new]
+  before_action :set_form, only: %i[index show new edit]
+  before_action :set_questions, only: %i[show new edit]
 
   # GET /responses or /responses.json
   def index
