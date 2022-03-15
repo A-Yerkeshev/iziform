@@ -4,11 +4,11 @@
       = @form.name
 
 .row.justify-content-center
-  .col-md-8.col-xl-6
+  .col-md-8.col-xl-6.shadow.p-4.mt-3.bg-white
     = form_for(@response, {html: {id: 'response-form'}}) do |f|
-      .owl-carousel.owl-theme.shadow.p-4.mt-3.bg-white
+      .owl-carousel.owl-theme
         - @questions.each do |question|
-          .item
+          .item.p-1
             .row.mb-3
               .col-12
                 h4
@@ -17,9 +17,6 @@
               .col-12
                 - case question.question_type when 0
                   = text_area_tag("response[content][#{question.id}]", '', class: 'form-control', rows: 4)
-                  .mt-5
-                    button.btn.btn-secondary type="button" onclick="$('.owl-carousel').owlCarousel().trigger('next.owl.carousel')"
-                      i.fas.fa-chevron-right
                 - when 1
                   - question.options.each do |option|
                     .row
@@ -34,9 +31,6 @@
                         .form-check
                           = check_box_tag("response[content][#{question.id}]", option, false, class: 'form-check-input')
                           = label_tag("response_content_#{question.id}", option, class: 'form-check-label')
-                  .mt-5
-                    button.btn.btn-secondary.mt-5 type="button" onclick="nextSlide()"
-                      =">>"
         .item
           .row
             .col
@@ -45,19 +39,26 @@
           .row
             .col
               = text_field_tag('response[respondent]', '', class: 'form-control')
-
           .row.mt-5
             .col-auto
               = f.hidden_field :form_id
-              = f.submit('Submit answers', class: 'btn btn-primary')
+              = f.submit('Submit', class: 'btn btn-primary')
+      .row.justify-content-between
+        .col-auto
+          button.btn.btn-outline-secondary.rounded-circle type="button" onclick="previousSlide()"
+            i.fa-solid.fa-angles-left
+        .col-auto
+          button.btn.btn-outline-primary.rounded-circle type="button" onclick="nextSlide()"
+            i.fa-solid.fa-angles-right
 
 javascript:
   $('.owl-carousel').owlCarousel({
-    loop:true,
-    margin:10,
-    nav:true,
     items: 1
   })
+
+  function previousSlide() {
+    $('.owl-carousel').owlCarousel().trigger('prev.owl.carousel')
+  }
 
   function nextSlide() {
     $('.owl-carousel').owlCarousel().trigger('next.owl.carousel')

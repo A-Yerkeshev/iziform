@@ -33,3 +33,5 @@ window.$ = $;
 require("bootstrap")
 require("@nathanvda/cocoon")
 require("packs/src/owl.carousel.min.js")
+
+import "@fortawesome/fontawesome-free/js/all.js";
