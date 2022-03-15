@@ -21,23 +21,34 @@ class NewFormTest < ActionDispatch::IntegrationTest
     #   "commit"=>"Create Form"
     # }
 
-
+    questions = [
+      {
+        text: 'What is your full name?',
+        options: ['Option']
+      },{
+        text: 'What is your eyes colour?',
+        options: ['brown', 'blue', 'green']
+      },{
+        text: 'What languages you speak?',
+        options: ['English', 'Spanish', 'Chinese', 'Arabic']
+      }
+    ]
 
     params = {form: {
       name: 'New form',
       questions_attributes: {
         qa0: {
-          content: 'What is your full name?&&Option',
+          content: "#{questions[0]}&&Option",
           question_type: 0,
           _destroy: false
         },
         qa1: {
-          content: 'What is your eyes colour?\n&&brown\n&&blue&&green',
+          content: "#{questions[1]}\n&&brown\n&&blue&&green",
           question_type: 1,
           _destroy: false
         },
         qa2: {
-          content: 'What languages you speak?&&English\n&&Spanish\n&&Chinese&&Arabic',
+          content: "#{questions[2]}&&English\n&&Spanish\n&&Chinese&&Arabic",
           question_type: 2,
           _destroy: false
         }
@@ -45,16 +56,30 @@ class NewFormTest < ActionDispatch::IntegrationTest
     }}
 
     get new_form_path
+    assert_response :success
+
     assert_difference 'Form.count', 1 do
       post forms_path, params: params
     end
+
+    assert_redirected_to form_path(Form.last)
     follow_redirect!
-    assert_template 'forms/show'
 
     # Verify that form name is correct
+    assert_select 'h2', 'New form'
+
     # Verify that questions number is correct
+    assert_select 'h6', 3
+
     # Verify that each questions text is correct
+    assert_select 'h6' do |tags|
+      tags.each_with_index do |tag, i|
+        assert tag[:text] == params[:form][:questions_attributes]["qa#{i}"]
+      end
+    end
+
     # Verify that each questions options are correct
+
   end
 
   test 'Reject form with invalid credentials' do
