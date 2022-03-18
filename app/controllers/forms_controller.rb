@@ -72,8 +72,8 @@ class FormsController < ApplicationController
       form_raw_params = params.require(:form).permit(:name, :token, :status, :data, questions_attributes: %i[content question_type _destroy])
       questions_attributes = form_raw_params[:questions_attributes]
       questions_attributes.each do |key, attributes|
-        if questions_attributes[key][:question_type] != 0
-          parts = attributes[:content].split('&&')
+        if questions_attributes[key][:question_type] != '0'
+          parts = attributes[:content].split("\n")
           questions_attributes[key][:content] = parts[0]
           questions_attributes[key][:options] = parts[1..]
         else
