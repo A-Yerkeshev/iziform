@@ -77,7 +77,7 @@ class ResponsesController < ApplicationController
         format.html { redirect_to response_url(@response), notice: "Response was successfully updated." }
         format.json { render :show, status: :ok, location: @response }
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        format.html { render :edit, status: :unprocessable_entity, flash: { error: 'Response could not be saved' } }
         format.json { render json: @response.errors, status: :unprocessable_entity }
       end
     end

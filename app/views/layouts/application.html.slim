@@ -15,4 +15,14 @@ html
 
   body.bg-light
     .container.mb-5
+      .row
+        .col
+          - flash.each do |key, value|
+            - unless value.blank? || value.to_s=="true"
+              .alert.alert-dismissable.fade.show *{:class => [ bootstrap_class_for(key) ]}
+                button.close type="button" data-dismiss="alert" aria-label="Close"
+                  span aria-hidden="true"
+                    | &times
+                == value
+
       = yield
