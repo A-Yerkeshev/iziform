@@ -1,48 +1,53 @@
-= form_for(@response, {html: {id: 'response-form'}}) do |f|
-  .owl-carousel.owl-theme
-    - @questions.each do |question|
-      .item.p-1
-        .row.mb-3
-          .col-12
-            h4
-              = question.content
-        .row
-          .col-12
-            - case question.question_type when 0
-              = text_area_tag("response[content][#{question.id}]", '', class: 'form-control', rows: 4)
-            - when 1
-              - question.options.each do |option|
-                .row
-                  .col-12
-                    .form-check
-                      = radio_button_tag("response[content][#{question.id}]", option, false, class: 'form-check-input', onchange: 'nextSlide()')
-                      = label_tag("response_content_#{question.id}_#{option}", option, class: 'form-check-label')
-            - when 2
-              - question.options.each do |option|
-                .row
-                  .col-12
-                    .form-check
-                      = check_box_tag("response[content][#{question.id}]", option, false, class: 'form-check-input')
-                      = label_tag("response_content_#{question.id}", option, class: 'form-check-label')
-    .item
-      .row
-        .col
-          h6
-            = label_tag('response_respondent', 'Respondent')
-      .row
-        .col
-          = text_field_tag('response[respondent]', '', class: 'form-control')
-      .row.mt-5
+.row.justify-content-center
+  .col-md-8.col-xl-6.shadow.p-4.mt-3.bg-white
+    = form_for(@response, {html: {id: 'response-form'}}) do |f|
+      .owl-carousel.owl-theme
+        - @questions.each do |question|
+          .item.p-1
+            .row.mb-3
+              .col-12
+                h4
+                  = question.content
+            .row
+              .col-12
+                - case question.question_type when 0
+                  = text_area_tag("response[content][#{question.id}]", response[:content][question.id.to_s], class: 'form-control', rows: 4)
+                - when 1
+                  - question.options.each do |option|
+                    .row
+                      .col-12
+                        .form-check
+                          / Pre-select option if user is editing response
+                          - checked = (response[:content].key?(question.id.to_s) && response[:content][question.id.to_s] == option)
+                          = radio_button_tag("response[content][#{question.id}]", option, checked, class: 'form-check-input', onchange: 'nextSlide()')
+                          = label_tag("response_content_#{question.id}_#{option}", option, class: 'form-check-label')
+                - when 2
+                  - question.options.each do |option|
+                    .row
+                      .col-12
+                        .form-check
+                          - checked = (response[:content].key?(question.id.to_s) && response[:content][question.id.to_s].include?(option))
+                          = check_box_tag("response[content][#{question.id}]", option, checked, class: 'form-check-input')
+                          = label_tag("response_content_#{question.id}", option, class: 'form-check-label')
+        .item
+          .row
+            .col
+              h6
+                = label_tag('response_respondent', 'Respondent')
+          .row
+            .col
+              = text_field_tag('response[respondent]', response[:respondent], class: 'form-control')
+          .row.mt-5
+            .col-auto
+              = f.hidden_field :form_id
+              = f.submit('Submit', class: 'btn btn-primary')
+      .row.justify-content-between
         .col-auto
-          = f.hidden_field :form_id
-          = f.submit('Submit', class: 'btn btn-primary')
-  .row.justify-content-between
-    .col-auto
-      button.btn.btn-outline-secondary.rounded-circle type="button" onclick="previousSlide()"
-        i.fa-solid.fa-angles-left
-    .col-auto
-      button.btn.btn-outline-primary.rounded-circle type="button" onclick="nextSlide()"
-        i.fa-solid.fa-angles-right
+          button.btn.btn-outline-secondary.rounded-circle type="button" onclick="previousSlide()"
+            i.fa-solid.fa-angles-left
+        .col-auto
+          button.btn.btn-outline-primary.rounded-circle type="button" onclick="nextSlide()"
+            i.fa-solid.fa-angles-right
 
 javascript:
   $('.owl-carousel').owlCarousel({

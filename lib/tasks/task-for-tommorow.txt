@@ -1,4 +1,0 @@
-1. Complete carousel styling
-
-3. Finish testing for new_form
-4. Style edit page

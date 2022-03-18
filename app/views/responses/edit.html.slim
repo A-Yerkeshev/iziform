@@ -1,6 +1,7 @@
 h1
   | Editing Response
+
 = render 'form', response: @response
-= link_to 'Show', @response
-|  | 
-= link_to 'Back', responses_path
+.row.mt-5
+  .col
+    = link_to 'Back', responses_path, class: 'btn btn-secondary'
