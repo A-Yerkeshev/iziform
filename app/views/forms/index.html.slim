@@ -15,15 +15,15 @@ p#notice
     .row
       .col-auto
         span
-          'Created at:
+          => 'Created at:'
         em
-          = form.created_at.strftime("%d/%m/%y, %H:%M")
+          = local_time(form.created_at, '%d/%m/%y, %H:%M')
     .row
       .col-auto
         span
-          'Last updated at:
+          => 'Last updated at:'
         em
-          = form.updated_at.strftime("%d/%m/%y, %H:%M")
+          = local_time(form.updated_at, '%d/%m/%y, %H:%M')
     .row.mt-3
       .col-auto
         .btn-group

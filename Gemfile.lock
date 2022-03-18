@@ -112,6 +112,7 @@ GEM
       rexml
     kramdown-parser-gfm (1.1.0)
       kramdown (~> 2.0)
+    local_time (2.1.0)
     loofah (2.14.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -289,6 +290,7 @@ DEPENDENCIES
   cocoon
   jbuilder (~> 2.7)
   jquery-rails
+  local_time
   puma (~> 5.0)
   rack-mini-profiler (~> 2.0)
   rails (~> 6.1.4, >= 6.1.4.4)

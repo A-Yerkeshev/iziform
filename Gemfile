@@ -32,6 +32,7 @@ gem "awesome_print"
 gem 'bootstrap', '~> 5.1.3'
 gem 'jquery-rails'
 gem "cocoon"
+gem "local_time"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

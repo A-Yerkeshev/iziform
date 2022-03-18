@@ -35,3 +35,6 @@ require("@nathanvda/cocoon")
 require("packs/src/owl.carousel.min.js")
 
 import "@fortawesome/fontawesome-free/js/all.js";
+
+import LocalTime from "local-time"
+LocalTime.start()
