@@ -70,7 +70,7 @@ class FormsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def form_params
-      form_raw_params = params.require(:form).permit(:name, :token, :status, :data, questions_attributes: %i[content question_type _destroy])
+      form_raw_params = params.require(:form).permit(:name, :token, :status, :data, questions_attributes: %i[id content question_type _destroy])
       questions_attributes = form_raw_params[:questions_attributes]
       questions_attributes.each do |key, attributes|
         if questions_attributes[key][:question_type] != '0'

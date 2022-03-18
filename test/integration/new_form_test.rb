@@ -38,17 +38,17 @@ class NewFormTest < ActionDispatch::IntegrationTest
       name: 'New form',
       questions_attributes: {
         qa0: {
-          content: "#{questions[0]}&&Option",
+          content: "#{questions[0][:text]}\n#{questions[0][:options][0]}",
           question_type: 0,
           _destroy: false
         },
         qa1: {
-          content: "#{questions[1]}\n&&brown\n&&blue&&green",
+          content: "#{questions[1][:text]}\n#{questions[1][:options][0]}\n#{questions[1][:options][1]}\n#{questions[1][:options][2]}",
           question_type: 1,
           _destroy: false
         },
         qa2: {
-          content: "#{questions[2]}&&English\n&&Spanish\n&&Chinese&&Arabic",
+          content: "#{questions[2][:text]}\n#{questions[2][:options][0]}\n#{questions[2][:options][1]}\n#{questions[2][:options][2]}\n#{questions[2][:options][3]}",
           question_type: 2,
           _destroy: false
         }
@@ -69,12 +69,12 @@ class NewFormTest < ActionDispatch::IntegrationTest
     assert_select 'h2', 'New form'
 
     # Verify that questions number is correct
-    assert_select 'h6', 3
+    assert_select 'h6', form_path(Form.last), count: 3
 
     # Verify that each questions text is correct
     assert_select 'h6' do |tags|
       tags.each_with_index do |tag, i|
-        assert tag[:text] == params[:form][:questions_attributes]["qa#{i}"]
+        assert tag[:text] == questions[i][:text]
       end
     end
 
