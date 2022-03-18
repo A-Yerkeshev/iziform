@@ -14,13 +14,14 @@ class FormsController < ApplicationController
   # GET /forms/new
   def new
     @form = Form.new
-
-    # Create first blank question for form field
-    @blank_question = Question.new
   end
 
   # GET /forms/1/edit
   def edit
+    # Compile content and options together for editing
+    @form.questions.each do |question|
+      question.content.concat(question.options.join("\n"))
+    end
   end
 
   # POST /forms or /forms.json
