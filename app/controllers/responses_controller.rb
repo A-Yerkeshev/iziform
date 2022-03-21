@@ -1,6 +1,6 @@
 class ResponsesController < ApplicationController
   before_action :set_response, only: %i[show edit update destroy]
-  before_action :set_form, only: %i[index show new edit]
+  before_action :set_form, only: %i[index show new edit create]
   before_action :set_questions, only: %i[show new edit]
 
   # GET /responses or /responses.json
@@ -64,7 +64,7 @@ class ResponsesController < ApplicationController
         format.html { redirect_to response_url(@response), notice: "Response was successfully created." }
         format.json { render :show, status: :created, location: @response }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { redirect_to new_response_path(form_id: @response.form_id), notice: "#{@response.errors.full_messages.join(', ')}" }
         format.json { render json: @response.errors, status: :unprocessable_entity }
       end
     end
@@ -100,7 +100,10 @@ class ResponsesController < ApplicationController
     end
 
     def set_form
-      @form = @response&.form || Form.find_by_id(params[:form_id])
+      form_id = params[:form_id] || params.dig(:response, :form_id)
+      @form = @response&.form || Form.find_by_id(form_id)
+
+      redirect_to forms_path, flash: { error: 'You must specify form id' } unless @form
     end
 
     def set_questions
@@ -110,5 +113,12 @@ class ResponsesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def response_params
       params.require(:response).permit(:form_id, :respondent, content:{})
+
+      # # Remove \n and \r characters from the end of response option
+      # if params[:content]
+      #   params[:content].each do |question_id, answer|
+      #     params[:content][question_id] = answer.chop
+      #   end
+      # end
     end
 end

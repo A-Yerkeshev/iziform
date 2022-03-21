@@ -76,7 +76,7 @@ class FormsController < ApplicationController
         if questions_attributes[key][:question_type] != '0'
           parts = attributes[:content].split("\n-")
           questions_attributes[key][:content] = parts[0]
-          questions_attributes[key][:options] = parts[1..]
+          questions_attributes[key][:options] = parts[1..].map(&:strip)
         else
           questions_attributes[key][:options] = []
         end
