@@ -20,7 +20,7 @@ class FormsController < ApplicationController
   def edit
     # Compile content and options together for editing
     @form.questions.each do |question|
-      question.content.concat(question.options.join("\n"))
+      question.content.concat("\n-", question.options.join("\n-"))
     end
   end
 
@@ -74,7 +74,7 @@ class FormsController < ApplicationController
       questions_attributes = form_raw_params[:questions_attributes]
       questions_attributes.each do |key, attributes|
         if questions_attributes[key][:question_type] != '0'
-          parts = attributes[:content].split("\n")
+          parts = attributes[:content].split("\n-")
           questions_attributes[key][:content] = parts[0]
           questions_attributes[key][:options] = parts[1..]
         else
