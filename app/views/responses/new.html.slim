@@ -4,3 +4,6 @@
       = @form.name
 
 = render 'form', response: @response
+.row.justify-content-start.mt-5
+  .col-auto
+    = link_to('Back', responses_path, class: 'btn btn-secondary')
