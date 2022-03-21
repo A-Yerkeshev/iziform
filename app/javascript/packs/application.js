@@ -18,7 +18,7 @@
 // Turbolinks.start()
 // ActiveStorage.start()
 
-
+'use strict';
 
 require("@rails/ujs").start()
 //require("turbolinks").start()
@@ -38,3 +38,30 @@ import "@fortawesome/fontawesome-free/js/all.js";
 
 import LocalTime from "local-time"
 LocalTime.start()
+
+$(document).ready(initOwlCarousel);
+$(document).ready(initFormValidation);
+
+function initOwlCarousel() {
+  $('.owl-carousel').owlCarousel({
+    items: 1
+  })
+}
+
+function initFormValidation() {
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  const forms = document.querySelectorAll('.needs-validation');
+
+  // Loop over them and prevent submission
+  Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+
+        form.classList.add('was-validated')
+      }, false)
+    })
+}
