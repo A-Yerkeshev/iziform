@@ -103,7 +103,7 @@ class ResponsesController < ApplicationController
       form_id = params[:form_id] || params.dig(:response, :form_id)
       @form = @response&.form || Form.find_by_id(form_id)
 
-      redirect_to forms_path, flash: { error: 'You must specify form id' } unless @form
+      #redirect_to forms_path, flash: { error: 'You must specify form id' } unless @form
     end
 
     def set_questions
