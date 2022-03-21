@@ -112,13 +112,6 @@ class ResponsesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def response_params
-      params.require(:response).permit(:form_id, :respondent, content:{})
-
-      # # Remove \n and \r characters from the end of response option
-      # if params[:content]
-      #   params[:content].each do |question_id, answer|
-      #     params[:content][question_id] = answer.chop
-      #   end
-      # end
+      params.require(:response).permit(:form_id, :respondent, content: {})
     end
 end
