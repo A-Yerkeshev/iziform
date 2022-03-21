@@ -17,7 +17,7 @@
       span
         'Created at:
         em
-          = response.created_at.strftime("%d/%m/%y, %H:%M")
+          = local_time(response.created_at, "%d/%m/%y, %H:%M")
     .col.col-lg-3.p-2
       .btn-group
         = link_to 'View', response, class: 'btn btn-primary'
