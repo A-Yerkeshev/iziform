@@ -27,7 +27,7 @@
                       .col-12
                         .form-check
                           - checked = (response[:content].key?(question.id.to_s) && response[:content][question.id.to_s].include?(option))
-                          = check_box_tag("response[content][#{question.id}]", option, checked, class: 'form-check-input')
+                          = check_box_tag("response[content][#{question.id}][]", option, checked, class: 'form-check-input')
                           = label_tag("response_content_#{question.id}", option, class: 'form-check-label')
         .item.px-1
           .row
