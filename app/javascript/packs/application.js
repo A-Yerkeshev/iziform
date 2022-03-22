@@ -72,20 +72,41 @@ function initFormValidation() {
   Array.prototype.slice.call(forms)
     .forEach(function (form) {
       form.addEventListener('submit', function (event) {
-        // Check if at least one option of multiple-choice question was selected
+        let valid = form.checkValidity();
 
-        if (!form.checkValidity()) {
+        {
+          // Check if at least one option of multiple-choice question was selected
+          const options = $(':input[type="checkbox"]');
+          let match = false;
+
+          for (let i=0; i<options.length; i++) {
+            if (options[i].checked) {
+              match = true;
+              break;
+            }
+          }
+
+          if (!match) {
+            valid = false;
+
+            options.each(function() {
+              $(this).addClass('is-invalid');
+            })
+          }
+        }
+
+        if (!valid) {
           event.preventDefault();
           event.stopPropagation();
 
           // Move Owl Carousel to the first slide with error
-          const errorSlides = $('.item').has('.form-check-input:invalid');
+          const errorSlides = $('.item').has('.is-invalid');
 
           if (errorSlides[0]) {
             Owl.trigger('to.owl.carousel', [errorSlides[0].dataset.index, 100]);
 
             formError.text('Please, answer this question.');
-            formError.show();
+            formError.removeClass('d-none');
           }
         }
 
@@ -105,6 +126,6 @@ function nextSlide() {
 }
 
 function clearErrorMessage() {
-  formError.hide();
+  formError.addClass('d-none');
   formError.text('');
 }
