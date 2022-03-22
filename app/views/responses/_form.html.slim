@@ -19,7 +19,7 @@
                         .form-check
                           / Pre-select option if user is editing response
                           - checked = (response[:content].key?(question.id.to_s) && response[:content][question.id.to_s] == option)
-                          = radio_button_tag("response[content][#{question.id}]", option, checked, class: 'form-check-input', onchange: 'nextSlide()', required: true)
+                          = radio_button_tag("response[content][#{question.id}]", option, checked, class: 'form-check-input', required: true)
                           = label_tag("response_content_#{question.id}_#{option}", option, class: 'form-check-label')
                 - when 2
                   - question.options.each do |option|
@@ -43,17 +43,8 @@
               = f.submit('Submit', class: 'btn btn-primary')
       .row.justify-content-between
         .col-auto
-          button.btn.btn-outline-secondary.rounded-circle type="button" onclick="previousSlide()"
+          button.btn.btn-outline-secondary.rounded-circle type="button"
             i.fa-solid.fa-angles-left
         .col-auto
-          button.btn.btn-outline-primary.rounded-circle type="button" onclick="nextSlide()"
+          button.btn.btn-outline-primary.rounded-circle type="button"
             i.fa-solid.fa-angles-right
-
-javascript:
-  function previousSlide() {
-    $('.owl-carousel').owlCarousel().trigger('prev.owl.carousel');
-  }
-
-  function nextSlide() {
-    $('.owl-carousel').owlCarousel().trigger('next.owl.carousel');
-  }

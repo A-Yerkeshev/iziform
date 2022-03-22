@@ -41,6 +41,16 @@ LocalTime.start()
 
 $(document).ready(initOwlCarousel);
 $(document).ready(initFormValidation);
+$(document).ready(addEventListeners);
+
+function addEventListeners() {
+  $('.btn-outline-secondary').click(previousSlide);
+  $('.btn-outline-primary').click(nextSlide);
+
+  $(':input[type="radio"]').each(function() {
+    $(this).change(nextSlide);
+  })
+}
 
 function initOwlCarousel() {
   $('.owl-carousel').owlCarousel({
@@ -64,4 +74,12 @@ function initFormValidation() {
         form.classList.add('was-validated')
       }, false)
     })
+}
+
+function previousSlide() {
+  $('.owl-carousel').owlCarousel().trigger('prev.owl.carousel');
+}
+
+function nextSlide() {
+  $('.owl-carousel').owlCarousel().trigger('next.owl.carousel');
 }
