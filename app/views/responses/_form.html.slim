@@ -1,9 +1,12 @@
 .row.justify-content-center
   .col-md-8.col-xl-6.shadow.mt-3.p-4.bg-white
     = form_for(@response, {html: {id: 'response-form', class: 'needs-validation', novalidate: 'true'}}) do |f|
+      .row
+        .col
+          #form-error.alert.alert-danger.py-1 role="alert"
       .owl-carousel.owl-theme
-        - @questions.each do |question|
-          .item.px-1
+        - @questions.each_with_index do |question, index|
+          .item.px-1 data-index="#{index}"
             .row.mb-3
               .col-12
                 h4
@@ -29,7 +32,7 @@
                           - checked = (response[:content].key?(question.id.to_s) && response[:content][question.id.to_s].include?(option))
                           = check_box_tag("response[content][#{question.id}][]", option, checked, class: 'form-check-input')
                           = label_tag("response_content_#{question.id}", option, class: 'form-check-label')
-        .item.px-1
+        .item.px-1 data-index="#{@questions.length}"
           .row
             .col
               h6

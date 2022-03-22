@@ -26,7 +26,7 @@ require("@rails/activestorage").start()
 require("channels")
 require("jquery")
 
-import $ from 'jquery';
+import $, { error } from 'jquery';
 window.jQuery = $;
 window.$ = $;
 
@@ -39,6 +39,12 @@ import "@fortawesome/fontawesome-free/js/all.js";
 import LocalTime from "local-time"
 LocalTime.start()
 
+let Owl, formError;
+
+$(document).ready(() => {
+  Owl = $('.owl-carousel');
+  formError = $('#form-error');
+})
 $(document).ready(initOwlCarousel);
 $(document).ready(initFormValidation);
 $(document).ready(addEventListeners);
@@ -53,7 +59,7 @@ function addEventListeners() {
 }
 
 function initOwlCarousel() {
-  $('.owl-carousel').owlCarousel({
+  Owl.owlCarousel({
     items: 1
   })
 }
@@ -66,20 +72,39 @@ function initFormValidation() {
   Array.prototype.slice.call(forms)
     .forEach(function (form) {
       form.addEventListener('submit', function (event) {
+        // Check if at least one option of multiple-choice question was selected
+
         if (!form.checkValidity()) {
-          event.preventDefault()
-          event.stopPropagation()
+          event.preventDefault();
+          event.stopPropagation();
+
+          // Move Owl Carousel to the first slide with error
+          const errorSlides = $('.item').has('.form-check-input:invalid');
+
+          if (errorSlides[0]) {
+            Owl.trigger('to.owl.carousel', [errorSlides[0].dataset.index, 100]);
+
+            formError.text('Please, answer this question.');
+            formError.show();
+          }
         }
 
-        form.classList.add('was-validated')
+        form.classList.add('was-validated');
       }, false)
     })
 }
 
 function previousSlide() {
-  $('.owl-carousel').owlCarousel().trigger('prev.owl.carousel');
+  Owl.trigger('prev.owl.carousel');
+  clearErrorMessage();
 }
 
 function nextSlide() {
-  $('.owl-carousel').owlCarousel().trigger('next.owl.carousel');
+  Owl.trigger('next.owl.carousel');
+  clearErrorMessage();
+}
+
+function clearErrorMessage() {
+  formError.hide();
+  formError.text('');
 }
