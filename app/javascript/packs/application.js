@@ -72,35 +72,42 @@ function initFormValidation() {
   Array.prototype.slice.call(forms)
     .forEach(function (form) {
       form.addEventListener('submit', function (event) {
-        let valid = form.checkValidity();
+        let valid = true;
 
-        {
-          // Check if at least one option of multiple-choice question was selected
-          const options = $(':input[type="checkbox"]');
-          let match = false;
+        // {
+        //   // Check if at least one option of multiple-choice question was selected
+        //   const allCheckboxes = $(':input[type="checkbox"]');
+        //   const checkboxGroups = groupCheckboxes(allCheckboxes);
 
-          for (let i=0; i<options.length; i++) {
-            if (options[i].checked) {
-              match = true;
-              break;
-            }
-          }
+        //   checkboxGroups.forEach((group) => {
+        //     let atLeastOne = false;
 
-          if (!match) {
-            valid = false;
+        //     for (let i=0; i<group.length; i++) {
+        //       if (group[i].checked) {
+        //         atLeastOne = true;
+        //         break;
+        //       }
+        //     }
 
-            options.each(function() {
-              $(this).addClass('is-invalid');
-            })
-          }
-        }
+        //     // If no option was selected - mark all checkboxes as required
+        //     if (!atLeastOne) {
+        //       valid = false;
+
+        //       group.forEach((checkbox) => {
+        //         $(checkbox).addClass(':invalid');
+        //       })
+        //     }
+        //   })
+        // }
+
+        if (form.checkValidity() == false) { valid = false }
 
         if (!valid) {
           event.preventDefault();
           event.stopPropagation();
 
           // Move Owl Carousel to the first slide with error
-          const errorSlides = $('.item').has('.is-invalid');
+          const errorSlides = $('.item').has(':invalid');
 
           if (errorSlides[0]) {
             Owl.trigger('to.owl.carousel', [errorSlides[0].dataset.index, 100]);
@@ -110,7 +117,7 @@ function initFormValidation() {
           }
         }
 
-        form.classList.add('was-validated');
+        $(form).addClass('was-validated');
       }, false)
     })
 }
@@ -128,4 +135,16 @@ function nextSlide() {
 function clearErrorMessage() {
   formError.addClass('d-none');
   formError.text('');
+}
+
+function groupCheckboxes(checkboxes) {
+  const groups = {};
+
+  checkboxes.each(function() {
+    const groupId = $(this).attr('id').replace('response_content_', '').slice(0, -1);
+
+    groups.hasOwnProperty(groupId) ? groups[groupId].push($(this)) : groups[groupId] = [$(this)];
+  })
+
+  return [Object.values(groups)];
 }
