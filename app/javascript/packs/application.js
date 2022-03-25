@@ -94,6 +94,7 @@ function initFormValidation() {
         //       valid = false;
 
         //       group.forEach((checkbox) => {
+        //         $(checkbox).removeClass(':valid');
         //         $(checkbox).addClass(':invalid');
         //       })
         //     }
