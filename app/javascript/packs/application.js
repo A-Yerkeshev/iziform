@@ -72,50 +72,33 @@ function initFormValidation() {
   Array.prototype.slice.call(forms)
     .forEach(function (form) {
       form.addEventListener('submit', function (event) {
-        let valid = true;
-
-        // {
-        //   // Check if at least one option of multiple-choice question was selected
-        //   const allCheckboxes = $(':input[type="checkbox"]');
-        //   const checkboxGroups = groupCheckboxes(allCheckboxes);
-
-        //   checkboxGroups.forEach((group) => {
-        //     let atLeastOne = false;
-
-        //     for (let i=0; i<group.length; i++) {
-        //       if (group[i].checked) {
-        //         atLeastOne = true;
-        //         break;
-        //       }
-        //     }
-
-        //     // If no option was selected - mark all checkboxes as required
-        //     if (!atLeastOne) {
-        //       valid = false;
-
-        //       group.forEach((checkbox) => {
-        //         $(checkbox).removeClass(':valid');
-        //         $(checkbox).addClass(':invalid');
-        //       })
-        //     }
-        //   })
-        // }
-
-        if (form.checkValidity() == false) { valid = false }
-
-        if (!valid) {
+        if (!form.checkValidity()) {
           event.preventDefault();
           event.stopPropagation();
 
-          // Move Owl Carousel to the first slide with error
-          const errorSlides = $('.item').has(':invalid');
+          // Indicate failed validation based on form id
+          switch ($(form).attr('id')) {
+            case 'response-form':
+              const errorSlides = $('.item').has(':invalid');
 
-          if (errorSlides[0]) {
-            Owl.trigger('to.owl.carousel', [errorSlides[0].dataset.index, 100]);
+              if (errorSlides[0]) {
+                // Move Owl Carousel to the first slide with error
+                Owl.trigger('to.owl.carousel', [errorSlides[0].dataset.index, 100]);
+                formError.text('Please, answer this question.');
+              }
+              break;
+            case 'new-form-form':
+              if ($('#form_name').val().trim() === '') {
+                formError.text('Form name cannot be blank.');
+              } else {
+                formError.text('Question cannot be blank.');
+              }
 
-            formError.text('Please, answer this question.');
-            formError.removeClass('d-none');
+              break;
+            default:
           }
+
+          formError.removeClass('d-none');
         }
 
         $(form).addClass('was-validated');
@@ -149,3 +132,29 @@ function groupCheckboxes(checkboxes) {
 
   return [Object.values(groups)];
 }
+
+// Not working code for multiple-choice questions validation
+//   // Check if at least one option of multiple-choice question was selected
+//   const allCheckboxes = $(':input[type="checkbox"]');
+//   const checkboxGroups = groupCheckboxes(allCheckboxes);
+
+//   checkboxGroups.forEach((group) => {
+//     let atLeastOne = false;
+
+//     for (let i=0; i<group.length; i++) {
+//       if (group[i].checked) {
+//         atLeastOne = true;
+//         break;
+//       }
+//     }
+
+//     // If no option was selected - mark all checkboxes as required
+//     if (!atLeastOne) {
+//       valid = false;
+
+//       group.forEach((checkbox) => {
+//         $(checkbox).removeClass(':valid');
+//         $(checkbox).addClass(':invalid');
+//       })
+//     }
+//   })

@@ -1,12 +1,15 @@
-= form_for @form do |f|
+= form_for(@form, html: {id: 'new-form-form', class: 'needs-validation', novalidate: 'true'}) do |f|
   .row.mb-5
     .col.field
+      .row
+        .col
+          #form-error.alert.alert-danger.py-1.d-none role="alert"
       .row
         .col
           = f.label :name, 'Form name'
       .row
         .col.col-md-8.col-xl-6
-          = f.text_field :name, class: 'w-100'
+          = f.text_field :name, class: 'w-100', required: true
   .row
     .col
       p.mb-1
