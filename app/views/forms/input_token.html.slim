@@ -1,9 +1,12 @@
 .row.mt-5
-  .col-md-6
+  .col
     = form_tag(session[:return_path], method: session[:return_method])
-      => label_tag :token, 'Provide a security token:'
-      = text_field_tag :token, '', class: 'form-control'
-      = submit_tag 'Ok', class: 'mt-5 btn btn-primary'
-
-
-      //// Back button
+      = label_tag :token, 'Provide a security token:'
+      .row.justify-content-start
+        .col-9.col-sm-6.col-md-4
+          = text_field_tag :token, '', class: 'form-control'
+        .col-auto.p-0
+          = submit_tag 'Submit', class: 'btn btn-primary'
+      .row.justify-content-start.mt-5
+        .col-auto
+          = link_to 'Back to forms', forms_path, class: 'btn btn-secondary'
