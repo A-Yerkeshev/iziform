@@ -46,7 +46,7 @@ class FormsController < ApplicationController
   def update
     respond_to do |format|
       if @form.update(form_params)
-        format.html { redirect_to form_url(@form), success: "Form was successfully updated." }
+        format.html { redirect_to form_url(@form), flash: {success: "Form was successfully updated." } }
         format.json { render :show, status: :ok, location: @form }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -94,15 +94,24 @@ class FormsController < ApplicationController
     end
 
     def validate_token
-      if (token = params[:token])
-        session["token_for_#{@form.id}"] = token
+      if params[:token]
+        session["token_for_#{@form.id}"] = params[:token]
       end
 
-      return if session["token_for_#{@form.id}"] == @form.token
+      token = session["token_for_#{@form.id}"]
+
+      return if token == @form.token
 
       session[:return_path] = request.fullpath
       session[:return_method] = request.method
-      redirect_to input_token_form_path(@form), notice: "Provide a valid token to access this page."
-      # error on invalid token
+
+      # Define error message
+      opt = {}
+      opt = if token.nil? || token.empty?
+              { notice: 'Provide a valid token to access secured page.' }
+            else
+              { error: 'The token you provided is invalid.' }
+            end
+      redirect_to input_token_form_path(@form), flash: opt
     end
 end

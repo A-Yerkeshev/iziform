@@ -19,7 +19,6 @@ html
         .col
           - flash.each do |key, value|
             - unless value.blank? || value.to_s=="true"
-              / .alert-dismissable ==> .alert-dismissible
               .alert.alert-dismissible.fade.show role="alert" *{:class => [ bootstrap_class_for(key) ]}
                 == value
                 button.btn-close type="button" data-bs-dismiss="alert" aria-label="Close"
