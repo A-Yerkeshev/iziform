@@ -1,6 +1,6 @@
 class FormsController < ApplicationController
   before_action :set_form, only: %i[ show edit update destroy ]
-  before_action :validate_token, only: %i[ show edit update destroy ]
+  before_action :validate_token, only: %i[ edit update destroy ]
 
   # GET /forms or /forms.json
   def index

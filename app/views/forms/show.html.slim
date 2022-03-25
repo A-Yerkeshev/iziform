@@ -20,6 +20,8 @@
 
 .row.justify-content-start.mt-5
   .col-auto
-    = link_to 'Edit', edit_form_path(@form), class: 'btn btn-primary'
+    = link_to 'Fill', new_response_path(form_id: @form.id), class: 'btn btn-primary'
   .col-auto
     = link_to 'Back', forms_path, class: 'btn btn-secondary'
+  .col-auto
+    = link_to 'Edit', edit_form_path(@form), class: 'btn btn-secondary'
