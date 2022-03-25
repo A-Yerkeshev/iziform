@@ -1,5 +1,6 @@
 class FormsController < ApplicationController
   before_action :set_form, only: %i[ show edit update destroy ]
+  before_action :validate_token, only: %i[ show edit update destroy ]
 
   # GET /forms or /forms.json
   def index
@@ -30,8 +31,9 @@ class FormsController < ApplicationController
 
     respond_to do |format|
       if @form.save
-        format.html { redirect_to form_url(@form), success: "Form was successfully created.
-                                                Your token is: <b>#{@form.token}</b>" }
+        session["token_for_#{@form.id}"] = @form.token
+        format.html { redirect_to form_url(@form), flash: {success: "Form was successfully created.
+                                                Your token is: <b>#{@form.token}</b>" } }
         format.json { render :show, status: :created, location: @form }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -58,9 +60,12 @@ class FormsController < ApplicationController
     @form.destroy
 
     respond_to do |format|
-      format.html { redirect_to forms_url, success: "Form was successfully destroyed." }
+      format.html { redirect_to forms_url, flash: { success: "Form was successfully destroyed." } }
       format.json { head :no_content }
     end
+  end
+
+  def input_token
   end
 
   private
@@ -77,7 +82,7 @@ class FormsController < ApplicationController
         if questions_attributes[key][:question_type] != '0'
           parts = attributes[:content].split("\n-")
           questions_attributes[key][:content] = parts[0]
-          questions_attributes[key][:options] = parts[1..].map(&:strip)
+          questions_attributes[key][:options] = parts[1..-1].map(&:strip)
         else
           questions_attributes[key][:options] = []
         end
@@ -86,5 +91,18 @@ class FormsController < ApplicationController
       form_raw_params[:questions_attributes] = questions_attributes
 
       form_raw_params
+    end
+
+    def validate_token
+      if (token = params[:token])
+        session["token_for_#{@form.id}"] = token
+      end
+
+      return if session["token_for_#{@form.id}"] == @form.token
+
+      session[:return_path] = request.fullpath
+      session[:return_method] = request.method
+      redirect_to input_token_form_path(@form), notice: "Provide a valid token to access this page."
+      # error on invalid token
     end
 end
