@@ -36,11 +36,12 @@
         = render 'question_fields', f: question
       .links
         = link_to_add_association 'Add question', f, :questions, class: 'btn btn-primary'
-        hr
-  .row
-    .col
+  .row.mt-5.mb-1
+    .col-auto
       => f.label :email, 'Email:'
+    .col.col-md-4.col-xl-3
       = f.email_field :email, class: 'form-control', required: true
+  hr
   .row
     .col-auto
       = f.submit class: 'btn btn-primary'

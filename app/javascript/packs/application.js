@@ -96,14 +96,27 @@ function initFormValidation() {
               }
               break;
             case 'new-form-form':
+              const textareas = $('textarea');
+              const regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+              let blankQuestion = false;
+
+              for (let i=0; i<textareas.length; i++) {
+                if ($(textareas[i]).val().trim() === '') {
+                  blankQuestion = true;
+                  break;
+                }
+              }
+
               if ($('#form_name').val().trim() === '') {
                 formError.text('Form name cannot be blank.');
-              }
-              // else if($('#form_email').val.trim() === '') {
-              //   formError.text('Please, provide email address.');
-              // }
-              else {
+              } else if (blankQuestion) {
                 formError.text('Question cannot be blank.');
+              } else if($('#form_email').val().trim() === '') {
+                formError.text('Please, provide email address.');
+              } else if (!regex.test($('#form_email').val())) {
+                formError.text('Email format is invalid.');
+              } else {
+                formError.text('Unexpected error occured.');
               }
 
               break;
