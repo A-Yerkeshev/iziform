@@ -26,13 +26,19 @@
         em
           = local_time(form.updated_at, '%d/%m/%y, %H:%M')
     .row.mt-3
+      .col
+        = check_box_tag "#{form.id}-owner", '', false, class: 'owner form-check-input', data: {form_id: form.id}
+        =< label_tag "#{form.id}-owner", 'This is my form', class: 'form-check-label'
+    .row.mt-3
       .col-auto
         .btn-group
+          = link_to 'Fill', new_response_path(form_id: form.id), class: 'btn btn-primary'
           = link_to 'Show', form, class: 'btn btn-secondary'
-          = link_to 'Fill', new_response_path(form_id: form.id), class: 'btn btn-secondary'
           = link_to 'Responses', responses_path(form_id: form.id), class: 'btn btn-secondary'
-          = link_to 'Edit', edit_form_path(form), class: 'btn btn-secondary'
-          = link_to 'Destroy', form, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-secondary'
+      .col-auto.ps-0
+        .btn-group
+          = link_to 'Edit', edit_form_path(form), class: 'btn btn-secondary d-none', data: {form_id: form.id}
+          = link_to 'Destroy', form, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-secondary d-none', data: {form_id: form.id}
 
 .row.mt-5
   .col

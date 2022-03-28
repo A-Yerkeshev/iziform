@@ -50,11 +50,19 @@ $(document).ready(initFormValidation);
 $(document).ready(addEventListeners);
 
 function addEventListeners() {
+  // Owl carousel pagination
   $('.btn-outline-secondary').click(previousSlide);
   $('.btn-outline-primary').click(nextSlide);
 
   $(':input[type="radio"]').each(function() {
     $(this).change(nextSlide);
+  })
+
+  // Form edit and delete buttons
+  $(':input.owner').each(function() {
+    $(this).change(function() {
+      this.checked ? showAdminButtons(this.dataset.formId) : hideAdminButtons(this.dataset.formId);
+    })
   })
 }
 
@@ -119,6 +127,16 @@ function nextSlide() {
 function clearErrorMessage() {
   formError.addClass('d-none');
   formError.text('');
+}
+
+function showAdminButtons(formId) {
+  $(`a[data-form-id='${formId}']:contains('Edit')`).removeClass('d-none');
+  $(`a[data-form-id='${formId}']:contains('Destroy')`).removeClass('d-none');
+}
+
+function hideAdminButtons(formId) {
+  $(`a[data-form-id='${formId}']:contains('Edit')`).addClass('d-none');
+  $(`a[data-form-id='${formId}']:contains('Destroy')`).addClass('d-none');
 }
 
 function groupCheckboxes(checkboxes) {
