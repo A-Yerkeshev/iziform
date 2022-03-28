@@ -6,10 +6,10 @@
           #form-error.alert.alert-danger.py-1.d-none role="alert"
       .row
         .col
-          = f.label :name, 'Form name'
+          = f.label :name, 'Form name:'
       .row
         .col.col-md-8.col-xl-6
-          = f.text_field :name, class: 'w-100', required: true
+          = f.text_field :name, class: 'form-control', required: true
   .row
     .col
       p.mb-1
@@ -37,6 +37,10 @@
       .links
         = link_to_add_association 'Add question', f, :questions, class: 'btn btn-primary'
         hr
+  .row
+    .col
+      => f.label :email, 'Email:'
+      = f.email_field :email, class: 'form-control', required: true
   .row
     .col-auto
       = f.submit class: 'btn btn-primary'

@@ -32,6 +32,8 @@ class FormsController < ApplicationController
     respond_to do |format|
       if @form.save
         session["token_for_#{@form.id}"] = @form.token
+        Notifier.new_form_email(@form).deliver
+
         format.html { redirect_to form_url(@form), flash: {success: "Form was successfully created.
                                                 Your token is: <b>#{@form.token}</b>" } }
         format.json { render :show, status: :created, location: @form }
@@ -76,7 +78,7 @@ class FormsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def form_params
-      form_raw_params = params.require(:form).permit(:name, :token, :status, :data, questions_attributes: %i[id content question_type _destroy])
+      form_raw_params = params.require(:form).permit(:name, :token, :status, :data, :email, questions_attributes: %i[id content question_type _destroy])
       questions_attributes = form_raw_params[:questions_attributes]
       questions_attributes.each do |key, attributes|
         if questions_attributes[key][:question_type] != '0'

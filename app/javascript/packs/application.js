@@ -98,7 +98,11 @@ function initFormValidation() {
             case 'new-form-form':
               if ($('#form_name').val().trim() === '') {
                 formError.text('Form name cannot be blank.');
-              } else {
+              }
+              // else if($('#form_email').val.trim() === '') {
+              //   formError.text('Please, provide email address.');
+              // }
+              else {
                 formError.text('Question cannot be blank.');
               }
 
