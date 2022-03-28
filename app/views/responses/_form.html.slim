@@ -23,7 +23,7 @@
                           / Pre-select option if user is editing response
                           - checked = (response[:content].key?(question.id.to_s) && response[:content][question.id.to_s] == option)
                           = radio_button_tag("response[content][#{question.id}]", option, checked, class: 'form-check-input', required: true)
-                          = label_tag("response_content_#{question.id}_#{option}", option, class: 'form-check-label')
+                          =< label_tag("response_content_#{question.id}_#{option}", option, class: 'form-check-label')
                 - when 2
                   - question.options.each do |option|
                     .row
@@ -31,7 +31,7 @@
                         .form-check
                           - checked = (response[:content].key?(question.id.to_s) && response[:content][question.id.to_s].include?(option))
                           = check_box_tag("response[content][#{question.id}][]", option, checked, class: 'form-check-input')
-                          = label_tag("response_content_#{question.id}", option, class: 'form-check-label')
+                          =< label_tag("response_content_#{question.id}", option, class: 'form-check-label')
         .item.px-1 data-index="#{@questions.length}"
           .row
             .col

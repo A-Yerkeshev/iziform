@@ -1,2 +1,12 @@
-| Your form was successfully created. To access it, use this token:
-= "#{@form.token}"
+h2
+  | Your form was successfully created.
+br
+| Use this link to share your form:
+br
+a[href="http://localhost:3000/responses/new?form_id=#{@form.id}"]
+  = "http://localhost:3000/responses/new?form_id=#{@form.id}"
+br
+| Use this token to edit your form:
+br
+b.bg-warning.p-1
+  = "#{@form.token}"
