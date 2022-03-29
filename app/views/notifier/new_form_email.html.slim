@@ -6,7 +6,11 @@ br
 a[href="http://localhost:3000/responses/new?form_id=#{@form.id}"]
   = "http://localhost:3000/responses/new?form_id=#{@form.id}"
 br
+br
 | Use this token to edit your form:
 br
 b.bg-warning.p-1
   = "#{@form.token}"
+br
+br
+| Do not share your security token with anyone!
