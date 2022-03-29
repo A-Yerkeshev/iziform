@@ -61,10 +61,10 @@ class ResponsesController < ApplicationController
 
     respond_to do |format|
       if @response.save
-        format.html { redirect_to response_url(@response), notice: "Response was successfully created." }
+        format.html { redirect_to response_url(@response), flash: {success: "Your answer has been saved." }}
         format.json { render :show, status: :created, location: @response }
       else
-        format.html { redirect_to new_response_path(form_id: @response.form_id), notice: "#{@response.errors.full_messages.join(', ')}" }
+        format.html { redirect_to new_response_path(form_id: @response.form_id), flash: {error: "#{@response.errors.full_messages.join(', ')}" }}
         format.json { render json: @response.errors, status: :unprocessable_entity }
       end
     end
@@ -74,7 +74,7 @@ class ResponsesController < ApplicationController
   def update
     respond_to do |format|
       if @response.update(response_params)
-        format.html { redirect_to response_url(@response), notice: "Response was successfully updated." }
+        format.html { redirect_to response_url(@response), flash: {success: "Response was successfully updated." }}
         format.json { render :show, status: :ok, location: @response }
       else
         format.html { render :edit, status: :unprocessable_entity, flash: { error: 'Response could not be saved' } }
@@ -88,7 +88,7 @@ class ResponsesController < ApplicationController
     @response.destroy
 
     respond_to do |format|
-      format.html { redirect_to responses_url, notice: "Response was successfully destroyed." }
+      format.html { redirect_to responses_url, flash: {success: "Response was successfully destroyed." }}
       format.json { head :no_content }
     end
   end
