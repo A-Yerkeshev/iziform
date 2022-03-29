@@ -30,7 +30,7 @@
               - else
                 = option
 .row.justify-content-start.mt-5
-  .col-auto
-    = link_to('Edit', edit_response_path(@response), class: 'btn btn-primary')
+  / .col-auto
+  /   = link_to('Edit', edit_response_path(@response), class: 'btn btn-primary')
   .col-auto
     = link_to('Back', responses_path(form_id: @form.id), class: 'btn btn-secondary')
