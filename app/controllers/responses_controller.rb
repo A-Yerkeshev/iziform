@@ -61,6 +61,8 @@ class ResponsesController < ApplicationController
 
     respond_to do |format|
       if @response.save
+        Notifier.new_response_email(@response, @form).deliver
+
         format.html { redirect_to response_url(@response), flash: {success: "Your answer has been saved." }}
         format.json { render :show, status: :created, location: @response }
       else
