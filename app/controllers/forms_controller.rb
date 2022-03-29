@@ -21,7 +21,9 @@ class FormsController < ApplicationController
   def edit
     # Compile content and options together for editing
     @form.questions.each do |question|
-      question.content.concat("\n-", question.options.join("\n-"))
+      unless question.question_type == Question::QUESTION_TYPES[:text]
+        question.content.concat("\n-", question.options.join("\n-"))
+      end
     end
   end
 
