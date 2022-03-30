@@ -1,0 +1,6 @@
+h2
+  = "Form '#{@form.name}' has new response."
+br
+| Click here to view it:
+a[href="http://localhost:3000/responses/#{@response.id}"]
+  = "http://localhost:3000/responses/#{@response.id}"

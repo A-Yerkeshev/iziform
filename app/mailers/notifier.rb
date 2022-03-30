@@ -6,4 +6,10 @@ class Notifier < ActionMailer::Base
     @form = form
     mail(to: form.email, subject: 'Your form was successfully created.')
   end
+
+  def new_response_email(response, form)
+    @response = response
+    @form = form
+    mail(to: form.email, subject: "Your form '#{form.name}' has new response.")
+  end
 end
